@@ -260,6 +260,9 @@ function createFXInserts() {
 var mercadoPagoCredentialTemplate = "INSERT INTO pm.mercadopago_credential (client_id, client_secret,public_key,access_token,country,panel_email,type,description,creation_date,category,binary_account,sponsor_id) VALUES('%clientId','%clientSecret','%publicKey','%accessToken','%country','%mail','preapproval','%name mercadopago %country',NOW(),'%category', '%binaryAccount','%sponsorId');\n";
 var mercadoPagoSubclientCredential = "INSERT INTO pm.mercadopago_subclient_credential SELECT %apiId, %mid,id_mercadopago_credential,1 FROM pm.mercadopago_credential WHERE client_id = '%clientId' AND country = '%country' AND sponsor_id = '%sponsorId';\n"
 
+var mercadoPagoGMCashTemplate = '{\n"country":"%country",\n"operation":"ALL",\n"cvv_type":"ALL",\n"merchant_id":%mid,\n"description":"Mercadopago %country - %name",\n"gateway_id":%gateway,\n"active":true,\n"credential_data":{\n"access_token":"%accessToken",\n"sponsor_id":"%sponsorId"\n},\n"generic":false\n}';
+var mercadoPagoGMCardTemplate = '{\n"country":"%country",\n"operation":"ALL",\n"cvv_type":"ALL",\n"merchant_id":%mid,\n"description":"Mercadopago %country - %name",\n"gateway_id":%gateway,\n"active":true,\n"credential_data":{\n"public_key":"%publicKey"\n"access_token":"%accessToken",\n"binary_account":true,\n"sponsor_id":"%sponsorId",\n"category_id":"%category",\n},\n"generic":false\n}';
+
 function createMercadoPagoInserts() {
   var inserts = "";
   var mid = document.getElementById("mpMid").value;
@@ -275,14 +278,14 @@ function createMercadoPagoInserts() {
 
   switch (country) {
     case 'AR':
-      inserts = createAPDInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 242832157, category, country);
+      inserts = createMPGMCardInsert(mid, name, publicKey, accessToken, 242832157, category, country, 66)
       break;
     case 'BR':
-      inserts = createAPDInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 242980896, category, country);
-      inserts += createAPCInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 242980896, category, country);
+      inserts = createMPGMCardInsert(mid, name, publicKey, accessToken, 242980896, category, country)
+      inserts = createMPGMCashInsert(mid, name, accessToken, 242980896, country);
       break;
     case 'CL':
-      inserts = createAPCInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 193468538, category, country);
+      inserts = createMPGMCashInsert(mid, name, accessToken, 193468538, country,231);
       break;
     case 'CO':
       inserts = createAPCInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 243357886, category, country);
@@ -299,19 +302,18 @@ function createMercadoPagoInserts() {
   document.getElementById("content").innerText += inserts;
 }
 
+/* PM FUNCTIONS */
 function createAPDInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, sponsorId, category, country) {
   return "-- APD " + country + " \n" +
     getMPCredentialInsert(name, mail, clientId, clientSecret, publicKey, accessToken, sponsorId, category, country, 1) +
     getMpSubclientCredentialInsert(mid, clientId, country, sponsorId, apiClientId.FULLAPI) +
     getMpSubclientCredentialInsert(mid, clientId, country, sponsorId, apiClientId.STREAMLINECARDS);
 }
-
 function createAPCInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, sponsorId, category, country) {
   return "-- APC " + country + " \n" +
     getMPCredentialInsert(name, mail, clientId, clientSecret, publicKey, accessToken, sponsorId, category, country, 1) +
     getMpSubclientCredentialInsert(mid, clientId, country, sponsorId, apiClientId.STREAMLINECASH);
 }
-
 function getMPCredentialInsert(name, mail, clientId, clientSecret, publicKey, accessToken, sponsorId, category, country, binaryAccount) {
   return mercadoPagoCredentialTemplate
     .replace(/%clientId/g, clientId)
@@ -325,7 +327,6 @@ function getMPCredentialInsert(name, mail, clientId, clientSecret, publicKey, ac
     .replace(/%binaryAccount/g, binaryAccount)
     .replace(/%sponsorId/g, sponsorId);
 }
-
 function getMpSubclientCredentialInsert(mid, clientId, country, sponsorId, apiId) {
   return mercadoPagoSubclientCredential
     .replace(/%apiId/g, apiId)
@@ -333,6 +334,36 @@ function getMpSubclientCredentialInsert(mid, clientId, country, sponsorId, apiId
     .replace(/%clientId/g, clientId)
     .replace(/%country/g, country)
     .replace(/%sponsorId/g, sponsorId);
+}
+
+/* GM FUNCTIONS */
+function createMPGMCashInsert(mid, name, accessToken, sponsorId, country, gatewayId) {
+  return "*Insert in GM*" + " \n" +
+          getMPGMCashInsert(mid, name, accessToken, sponsorId, country, gatewayId);
+}
+function createMPGMCardInsert(mid, name, publicKey, accessToken, sponsorId, category, country, gatewayId) {
+  return "*Insert in GM*" + " \n" +
+          getMPGMCardInsert(mid, name, publicKey, accessToken, sponsorId, category, country, gatewayId);
+}
+function getMPGMCashInsert(mid, name, accessToken, sponsorId, country, gatewayId) {
+  return mercadoPagoGMCashTemplate
+          .replace(/%mid/g, mid)
+          .replace(/%name/g, name)
+          .replace(/%accessToken/g, accessToken)
+          .replace(/%country/g, country)
+          .replace(/%gateway/g, gatewayId)
+          .replace(/%sponsorId/g, sponsorId);
+}
+function getMPGMCardInsert(mid, name, publicKey, accessToken, sponsorId, category, country, gatewayId) {
+  return mercadoPagoGMCardTemplate
+          .replace(/%mid/g, mid)
+          .replace(/%name/g, name)
+          .replace(/%publicKey/g, publicKey)
+          .replace(/%accessToken/g, accessToken)
+          .replace(/%country/g, country)
+          .replace(/%category/g, category)
+          .replace(/%gateway/g, gatewayId)
+          .replace(/%sponsorId/g, sponsorId);
 }
 
 // WhiteListedIps
