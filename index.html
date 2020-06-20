@@ -2,6 +2,9 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="SecretWeapon.css">
+    <link rel="stylesheet" type="text/css" href="https://harvesthq.github.io/chosen/chosen.css">
+    <script src='https://harvesthq.github.io/chosen/docsupport/jquery-3.2.1.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js'></script>
     <script src="SecretWeapon.js"></script>
   </head>
   <body>
@@ -68,7 +71,7 @@
         <input type="text" id="cashFeeMin" placeholder="Cash Fee Min (default 0.00)">
       </div>
       <div id="payinWalletFees" class="payinFee">
-Wallet
+        Wallet
         <input type="text" id="walletFeePercentage" placeholder="Wallet Fee Percentage (default NULL)">
         <input type="text" id="walletFeeTransaction" placeholder="Wallet Fee Transaction (default 0.00)">
         <input type="text" id="walletFeeMin" placeholder="Wallet Fee Min (default 0.00)">
@@ -99,6 +102,8 @@ Wallet
       <div id="payoutProcessingFees">
         <select id="payoutCountriesSelect">
           <option value="AR">Argentina</option>
+          <option value="BD">Bangladesh</option>
+          <option value="BO">Bolivia</option>
           <option value="BR">Brazil</option>
           <option value="CL">Chile</option>
           <option value="CN">China</option>
@@ -107,7 +112,11 @@ Wallet
           <option value="EC">Ecuador</option>
           <option value="EG">Egypt</option>
           <option value="IN">India</option>
+          <option value="ID">Indonesia</option>
           <option value="MX">Mexico</option>
+          <option value="MA">Morocco</option>
+          <option value="NG">Nigeria</option>
+          <option value="PA">Panama</option>
           <option value="PY">Paraguay</option>
           <option value="PE">Peru</option>
           <option value="UY">Uruguay</option>
@@ -125,11 +134,13 @@ Wallet
       <input type="text" id="fxMid" placeholder="Insert MID">
       <select id="countriesFXSelect">
         <option value="AR">Argentina</option>
+        <option value="BD">Bangladesh</option>
         <option value="BO">Bolivia</option>
         <option value="BR">Brazil</option>
         <option value="CL">Chile</option>
         <option value="CN">China</option>
         <option value="CO">Colombia</option>
+        <option value="CR">Costa Rica</option>
         <option value="EC">Ecuador</option>
         <option value="EG">Egypt</option>
         <option value="IN">India</option>
@@ -137,6 +148,7 @@ Wallet
         <option value="MX">Mexico</option>
         <option value="MA">Morocco</option>
         <option value="NG">Nigeria</option>
+        <option value="PA">Panama</option>        
         <option value="PY">Paraguay</option>
         <option value="PE">Peru</option>
         <option value="TR">Turkey</option>
