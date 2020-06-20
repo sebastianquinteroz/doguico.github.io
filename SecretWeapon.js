@@ -18,8 +18,8 @@ class PayinConfiguration {
 }
 
 class PayoutConfiguration {
-  constructor(taxes) {
-    this.taxes = taxes;
+  constructor(taxes = null) {
+    this.taxes = taxes == null ? [] : taxes;
   }
 }
 
@@ -123,14 +123,10 @@ class Country {
 
 // Templates
 var jiraBeautifyTemplate = "*%title* \n {code:sql} \n %content {code} \n";
-
 var insertPayinFeeTemplate = "INSERT INTO unipay.merchants_fee(id_merchant, id_country, payment_code, fee_percent, fee_transaction, fee_min, application_date) VALUES (%mid, %countryId, %paymentMethod, %feePercentage, %feeTransaction, %feeMin, NOW());\n";
-
 var insertFxTemplate = "INSERT INTO unipay.cotizacion_merchant(id_merchant, fecha, moneda %columns) VALUES (%mid, NOW(), %iso %fees);\n";
-
 var insertPayoutTaxTemplate = "INSERT INTO unipay.payout_merchant_tax(id_merchant, id_payout_tax, processing_responsible, application_date, enabled) VALUES (%mid, %payoutTaxId, '%responsible', now(), 1); \n";
-
-var insertPayoutFeeTemplate = "insert into unipay.cashout_merchant_fee(id_cashout_merchant_fee, id_merchant, id_country, processing_fee_percent, processing_fee_amount, rejection_fee_amount, processing_responsible, merchant_fee_percent, minimun_fee_amount, minimun_amount, financial_trans_tax, application_date, enabled) VALUES (NULL, %mid, %countryId, %processingFeePercent, %processingFeeAmount, %rejectionFeeAmount,%processingResponsible,%merchantFeePercent,%minimumFeeAmount,%minimumAmount,0.0,now(),1); \n";
+var insertPayoutFeeTemplate = "insert into unipay.cashout_merchant_fee(id_cashout_merchant_fee, id_merchant, id_country, processing_fee_percent, processing_fee_amount, rejection_fee_amount, processing_responsible, merchant_fee_percent, minimun_fee_amount, minimun_amount, financial_trans_tax, application_date, enabled) VALUES (NULL, %mid, %countryId, %processingFeePercent, %processingFeeAmount,%rejectionFeeAmount,%processingResponsible,%merchantFeePercent,%minimumFeeAmount,%minimumAmount,0.0,now(),1); \n";
 
 
 // Global Properties
@@ -141,22 +137,25 @@ const apiClientId = {
 }
 const countriesList = {
   AR: new Country("AR", "Argentina", 11, "ARS", 0.21, new PayinConfiguration(["VI", "MC", "AE", "DC", "CM", "NJ", "TS", "NT", "CS", "CL", "AG", "VD", "MD", "MS", "CO", "CB"], ["SI"], ["PF", "RP"]), new PayoutConfiguration([new PayoutTax(2, 'ID'), new PayoutTax(3, 'IC')])),
-  BO: new Country("BO", "Bolivia", 28, "BOB", 0.13, new PayinConfiguration(null, ["IO"], null)),
+  BD: new Country("BD", "Bangladesh", 19, "BDT", 0, null, new PayoutConfiguration()),
+  BO: new Country("BO", "Bolivia", 28, "BOB", 0.13, new PayinConfiguration(null, ["IO"], null), new PayoutConfiguration()),
   BR: new Country("BR", "Brazil", 29, "BRL", 0.02, new PayinConfiguration(["VI", "VD", "MC", "MD", "EL", "HI", "AE", "JC", "AU", "DI"], ["I", "B", "BB", "CA", "SB"], ["BL"]), new PayoutConfiguration([new PayoutTax(1, 'IOF')])),
-  CL: new Country("CL", "Chile", 44, "CLP", 0.19, new PayinConfiguration(["MC", "VI", "DC", "AE", "PR", "CM", "MG", "MH"], ["WP"], ["SP"])),
-  CN: new Country("CN", "China", 46, "CNY", 0, new PayinConfiguration(null, ["EF", "UP"], null)),
+  CL: new Country("CL", "Chile", 44, "CLP", 0.19, new PayinConfiguration(["MC", "VI", "DC", "AE", "PR", "CM", "MG", "MH"], ["WP"], ["SP"]), new PayoutConfiguration()),
+  CN: new Country("CN", "China", 46, "CNY", 0, new PayinConfiguration(null, ["EF", "UP"], null), new PayoutConfiguration()),
   CO: new Country("CO", "Colombia", 47, "COP", 0.19, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC"], ["PC"], ["EY", "DA", "BU"]), new PayoutConfiguration([new PayoutTax(4, 'GMF')])),
-  EC: new Country("EC", "Ecuador", 61, "USD", 0.12, new PayinConfiguration(["VI", "MC"], null, ["EF"])),
-  EG: new Country("EG", "Egypt", 63, "EGP", 0.14, new PayinConfiguration(["VI", "MC"], null, ["FW"])),
-  IN: new Country("IN", "India", 101, "INR", 0.18, new PayinConfiguration(["VI", "VD", "MC", "MD", "AE", "RU"], ["NB", "UI"], null, ["PW"])),
+  CR: new Country("CR", "Costa Rica", 48, "CRC", 0, null, new PayoutConfiguration()),
+  EC: new Country("EC", "Ecuador", 61, "USD", 0.12, new PayinConfiguration(["VI", "MC"], null, ["EF"]), new PayoutConfiguration()),
+  EG: new Country("EG", "Egypt", 63, "EGP", 0.14, new PayinConfiguration(["VI", "MC"], null, ["FW"]),  new PayoutConfiguration()),
+  IN: new Country("IN", "India", 101, "INR", 0.18, new PayinConfiguration(["VI", "VD", "MC", "MD", "AE", "RU"], ["NB", "UI"], null, ["PW"]),  new PayoutConfiguration()),
   ID: new Country("ID", "Indonesia", 98, "IDR", 0.1, new PayinConfiguration(["VI", "MC", "JC", "AE"], ["VS"], ["RO"], ["XW"])),
-  MA: new Country("MA", "Morocco", 132, "MAD", 0.2, new PayinConfiguration(["MI", "VI", "MC"], null, ["AM", "PP"])),
-  MX: new Country("MX", "Mexico", 150, "MXN", 0.16, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "KC", "KD"], ["SE", "BV", "BQ", "SM"], ["OX"])),
-  NG: new Country("NG", "Nigeria", 157, "NGN", 0, new PayinConfiguration(["VI", "MC", "VD", "MD", "VE"], null, null)),
+  MA: new Country("MA", "Morocco", 132, "MAD", 0.2, new PayinConfiguration(["MI", "VI", "MC"], null, ["AM", "PP"]),  new PayoutConfiguration()),
+  MX: new Country("MX", "Mexico", 150, "MXN", 0.16, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "KC", "KD"], ["SE", "BV", "BQ", "SM"], ["OX"]),  new PayoutConfiguration()),
+  NG: new Country("NG", "Nigeria", 157, "NGN", 0, new PayinConfiguration(["VI", "MC", "VD", "MD", "VE"], null, null),  new PayoutConfiguration()),
+  PA: new Country("PA", "Panama", 166, "USD", 0, null, new PayoutConfiguration()),
   PE: new Country("PE", "Peru", 167, "PEN", 0.18, new PayinConfiguration(["VI", "MC", "AE", "DC", "VD"], ["BC", "IB", "BP"], ["EF"]), new PayoutConfiguration([new PayoutTax(101, 'ITF')])),
-  PY: new Country("PY", "Paraguay", 179, "PYG", 0.1, new PayinConfiguration(["VI", "MC", "AE", "DC", "JC", "DI", "VD", "MS"], null, ["PE"])),
+  PY: new Country("PY", "Paraguay", 179, "PYG", 0.1, new PayinConfiguration(["VI", "MC", "AE", "DC", "JC", "DI", "VD", "MS"], null, ["PE"]), new PayoutConfiguration()),
   TR: new Country("TR", "Turkey", 215, "TRY", 0.18, new PayinConfiguration(["AE", "VI", "MC", "OT"], null, null)),
-  UY: new Country("UY", "Uruguay", 224, "UYU", 0.22, new PayinConfiguration(["VI", "MC", "DC", "OA", "LI"], null, ["RE", "AI"])),
+  UY: new Country("UY", "Uruguay", 224, "UYU", 0.22, new PayinConfiguration(["VI", "MC", "DC", "OA", "LI"], null, ["RE", "AI"]), new PayoutConfiguration()),
   ZA: new Country("ZA", "South Africa", 237, "ZAR", 0, new PayinConfiguration(["VI", "MC"], ["IO"], null))
 }
 
