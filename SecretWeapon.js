@@ -17,12 +17,12 @@ class PayinConfiguration {
   }
 
   getPaymentMethodsInQueryableList() {
-    return this.cardsPaymentMethods
+    var array = this.cardsPaymentMethods != null ? this.cardsPaymentMethods : [];
+    return "'" + array
           .concat(this.bankPaymentMethods)
           .concat(this.walletPaymentMethods)
           .concat(this.cashPaymentMethods)
-          .filter(function (el) {return el != null;}).toString().split(",").join("','");
-
+          .filter(function (el) {return el != null;}).toString().split(",").join("','") + "'";
   }
 }
 
@@ -195,16 +195,13 @@ function openTab(evt, tabName) {
 
   if (tabName == 'PayinFees') updateAvailableFees();
 }
-
 function clearInputs() {
   var inputs = document.querySelectorAll("input[type=text]")
   for (var i = 0; i < inputs.length; i++) inputs[i].value = "";
 }
-
 function clearContent() {
   document.getElementById("content").innerText = "";
 }
-
 function copyContentToClipboard() {
   const el = document.createElement('textarea');
   el.value = document.getElementById("content").innerText;
@@ -215,7 +212,6 @@ function copyContentToClipboard() {
 
   tempAlert('Copied to clipboard', 1000);
 }
-
 function addFormatForJira() {
 
   var title = document.getElementsByClassName('tablinks active')[0].textContent;
@@ -230,7 +226,6 @@ function beautifyContent(title, content) {
     .replace(/%title/g, title)
     .replace(/%content/g, content);
 }
-
 function tempAlert(msg, duration) {
   var el = document.createElement("div");
   el.setAttribute("style", "position:absolute;top:50%;left:50%;background-color:gray;color:white");
@@ -240,12 +235,10 @@ function tempAlert(msg, duration) {
   }, duration);
   document.body.appendChild(el);
 }
-
 function getSelectSelectedValue(id) {
   var e = document.getElementById(id);
   return e.options[e.selectedIndex].value;
 }
-
 function boldText(content) {
   return boldTextTemplate.replace(/%content/g, text);
 }
@@ -272,8 +265,8 @@ function createFXInserts() {
 var mercadoPagoCredentialTemplate = "INSERT INTO pm.mercadopago_credential (client_id, client_secret,public_key,access_token,country,panel_email,type,description,creation_date,category,binary_account,sponsor_id) VALUES('%clientId','%clientSecret','%publicKey','%accessToken','%country','%mail','preapproval','%name mercadopago %country',NOW(),'%category', '%binaryAccount','%sponsorId');\n";
 var mercadoPagoSubclientCredential = "INSERT INTO pm.mercadopago_subclient_credential SELECT %apiId, %mid,id_mercadopago_credential,1 FROM pm.mercadopago_credential WHERE client_id = '%clientId' AND country = '%country' AND sponsor_id = '%sponsorId';\n"
 
-var mercadoPagoGMCashTemplate = '{\n"country":"%country",\n"operation":"ALL",\n"cvv_type":"ALL",\n"merchant_id":%mid,\n"description":"Mercadopago %country - %name",\n"gateway_id":%gateway,\n"active":true,\n"credential_data":{\n"access_token":"%accessToken",\n"sponsor_id":"%sponsorId"\n},\n"generic":false\n}';
-var mercadoPagoGMCardTemplate = '{\n"country":"%country",\n"operation":"ALL",\n"cvv_type":"ALL",\n"merchant_id":%mid,\n"description":"Mercadopago %country - %name",\n"gateway_id":%gateway,\n"active":true,\n"credential_data":{\n"public_key":"%publicKey"\n"access_token":"%accessToken",\n"binary_account":true,\n"sponsor_id":"%sponsorId",\n"category_id":"%category",\n},\n"generic":false\n}';
+var mercadoPagoGMCashTemplate = '{\n"country":"%country",\n"operation":"ALL",\n"cvv_type":"ALL",\n"merchant_id":%mid,\n"description":"Mercadopago %country - %agentName - %name",\n"gateway_id":%gateway,\n"active":true,\n"credential_data":{\n"access_token":"%accessToken",\n"sponsor_id":"%sponsorId"\n},\n"generic":false\n}\n';
+var mercadoPagoGMCardTemplate = '{\n"country":"%country",\n"operation":"ALL",\n"cvv_type":"ALL",\n"merchant_id":%mid,\n"description":"Mercadopago %country - %agentName - %name",\n"gateway_id":%gateway,\n"active":true,\n"credential_data":{\n"public_key":"%publicKey"\n"access_token":"%accessToken",\n"binary_account":true,\n"sponsor_id":"%sponsorId",\n"category_id":"%category"\n},\n"generic":false\n}\n';
 
 function createMercadoPagoInserts() {
   var inserts = "";
@@ -290,23 +283,30 @@ function createMercadoPagoInserts() {
 
   switch (country) {
     case 'AR':
-      inserts = createMPGMCardInsert(mid, name, publicKey, accessToken, 242832157, category, country, 66)
+      inserts += createMPGMCardInsert('FCA', mid, name, publicKey, accessToken, 242832157, category, country, 66);
+      inserts += createMPGMCardInsert('Webpay',mid, name, publicKey, accessToken, 242832157, category, country, 117);
       break;
     case 'BR':
-      inserts = createMPGMCardInsert(mid, name, publicKey, accessToken, 242980896, category, country)
-      inserts = createMPGMCashInsert(mid, name, accessToken, 242980896, country);
+      inserts += createMPGMCardInsert('DLOCAL' ,mid, name, publicKey, accessToken, 242980896, category, country, 120);
+      inserts += createMPGMCashInsert('DLOCAL',mid, name, accessToken, 242980896, country, 193);
+      inserts += createMPGMCardInsert('WebPay',mid, name, publicKey, accessToken, 242980896, category, country, 121);
+      inserts += createMPGMCashInsert('WebPay',mid, name, accessToken, 242980896, country, 2001);
+      inserts += createMPGMCardInsert('FCA',mid, name, publicKey, accessToken, 242980896, category, country, 122);
+      inserts += createMPGMCashInsert('FCA',mid, name, accessToken, 242980896, country, 2002);
       break;
     case 'CL':
-      inserts = createMPGMCashInsert(mid, name, accessToken, 193468538, country,231);
+      inserts += createMPGMCardInsert('Pagos y Servicios (Local entity)', mid, name, publicKey, accessToken, 193468538, category, country, 118);
+      inserts += createMPGMCardInsert('DLOCAL CHILE (Crossborder entity)',mid, name, publicKey, accessToken, 193468538, category, country, 119);
+      inserts += createMPGMCashInsert('',mid, name, accessToken, 193468538, country, 231);
       break;
     case 'CO':
-      inserts = createAPCInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 243357886, category, country);
+      inserts += createAPCInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 243357886, category, country);
       break;
     case 'PE':
-      inserts = createAPDInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 243048183, category, country);
+      inserts += createAPDInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 243048183, category, country);
       break;
     case 'UY':
-      inserts = createAPDInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 258033865, category, country);
+      inserts += createAPDInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 258033865, category, country);
       inserts += createAPCInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 258033865, category, country);
       break;
   }
@@ -349,29 +349,29 @@ function getMpSubclientCredentialInsert(mid, clientId, country, sponsorId, apiId
 }
 
 /* GM FUNCTIONS */
-function createMPGMCashInsert(mid, name, accessToken, sponsorId, country, gatewayId) {
-  return "*Insert in GM*" + " \n" +
-          getMPGMCashInsert(mid, name, accessToken, sponsorId, country, gatewayId);
+function createMPGMCashInsert(agentName, mid, name, accessToken, sponsorId, country, gatewayId) {
+  return '-- Cash \n' + getMPGMCashInsert(agentName, mid, name, accessToken, sponsorId, country, gatewayId);
 }
-function createMPGMCardInsert(mid, name, publicKey, accessToken, sponsorId, category, country, gatewayId) {
-  return "*Insert in GM*" + " \n" +
-          getMPGMCardInsert(mid, name, publicKey, accessToken, sponsorId, category, country, gatewayId);
+function createMPGMCardInsert(agentName, mid, name, publicKey, accessToken, sponsorId, category, country, gatewayId) {
+  return '-- Cards \n' + getMPGMCardInsert(agentName,mid, name, publicKey, accessToken, sponsorId, category, country, gatewayId);
 }
-function getMPGMCashInsert(mid, name, accessToken, sponsorId, country, gatewayId) {
+function getMPGMCashInsert(agentName, mid, name, accessToken, sponsorId, country, gatewayId) {
   return mercadoPagoGMCashTemplate
           .replace(/%mid/g, mid)
           .replace(/%name/g, name)
           .replace(/%accessToken/g, accessToken)
+          .replace(/%agentName/g,agentName)
           .replace(/%country/g, country)
           .replace(/%gateway/g, gatewayId)
           .replace(/%sponsorId/g, sponsorId);
 }
-function getMPGMCardInsert(mid, name, publicKey, accessToken, sponsorId, category, country, gatewayId) {
+function getMPGMCardInsert(agentName, mid, name, publicKey, accessToken, sponsorId, category, country, gatewayId) {
   return mercadoPagoGMCardTemplate
           .replace(/%mid/g, mid)
           .replace(/%name/g, name)
           .replace(/%publicKey/g, publicKey)
           .replace(/%accessToken/g, accessToken)
+          .replace(/%agentName/g,agentName)
           .replace(/%country/g, country)
           .replace(/%category/g, category)
           .replace(/%gateway/g, gatewayId)
