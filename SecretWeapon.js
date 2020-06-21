@@ -15,6 +15,15 @@ class PayinConfiguration {
     this.cashPaymentMethods = cashPM;
     this.walletPaymentMethods = walletPM;
   }
+
+  getPaymentMethodsInQueryableList() {
+    return this.cardsPaymentMethods
+          .concat(this.bankPaymentMethods)
+          .concat(this.walletPaymentMethods)
+          .concat(this.cashPaymentMethods)
+          .filter(function (el) {return el != null;}).toString().split(",").join("','");
+
+  }
 }
 
 class PayoutConfiguration {
@@ -118,6 +127,10 @@ class Country {
 
       return taxes;
     }
+  }
+
+  getPaymentMethodsInQueryableList(){
+    return this.payinConfiguration.getPaymentMethodsInQueryableList();
   }
 }
 
@@ -605,25 +618,33 @@ function getFlutterwaveGMCredentialsInserts(mid, name, fwCountry, fwzaPublicKey,
 }
 
 // Disable FPago Update
-var disableFPagoUpdateTemplate = "UPDATE astropay.merchant_fpago set enabled = 0 where id_country not in (%countries) and id_merchant in (%mid);\n "
+var disableFPagoUpdateTemplate = "UPDATE astropay.merchant_fpago set enabled = 0 where id_merchant in (%mid);\n ";
+var enablePaymentMethods = "UPDATE astropay.merchant_fpago SET enabled=1,configured=1 WHERE id_merchant =%mid AND id_country=%idCountry AND idfpago in (SELECT idfpago FROM astropay.fpago WHERE codigo in (%fpagos));\n";
 
 function disableFPago() {
   var countriesIds = "";
   var mid = document.getElementById("disableFPagoMid").value;
+  var query = getFPagoUpdate(mid);
   var values = $("#disableFPagoSelect").chosen().val();
+
 
   for (var index in values) {
     var country = countriesList[values[index]];
-    countriesIds = countriesIds == "" ? country.id : countriesIds + "," + country.id;
+    query += getEnablePaymentMethods(mid,country.id,country.getPaymentMethodsInQueryableList());
   }
 
-  document.getElementById("content").innerText += beautifyContent('MID ' + mid, getFPagoUpdate(mid, countriesIds));
+  document.getElementById("content").innerText += beautifyContent('MID ' + mid, query);
 }
 
-function getFPagoUpdate(mid, countriesIds) {
-  return disableFPagoUpdateTemplate
+function getFPagoUpdate(mid) {
+  return disableFPagoUpdateTemplate.replace(/%mid/g, mid);
+}
+
+function getEnablePaymentMethods(mid, idCountry, fpagos) {
+  return enablePaymentMethods
     .replace(/%mid/g, mid)
-    .replace(/%countries/g, countriesIds);
+    .replace(/%idCountry/g, idCountry)
+    .replace(/%fpagos/g, fpagos);
 }
 
 var insertCashoutMerchantTemplate = "INSERT INTO unipay.cashout_merchants(id_merchant, user, pass, secret_key, status, processing_fee, fixed_fee, processing_fee_responsible, merchant_fee, notification_url, use_secco, daily_limit, monthly_limit, transaction_limit, creation_date, cashout_batch_enabled, default_descriptor, limit_validation_enabled) VALUES (%mid,'%user', '%pass', '%secretKey', 1, 0.0, 0.0, 'Merchant', 0.00, %notificationUrl, 0, %dailyLimit, %monthlyLimit, %transactionLimit, now(), %showPayoutsPanel, '%merchantName', %applyLimits); \n";
