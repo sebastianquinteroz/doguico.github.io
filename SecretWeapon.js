@@ -300,13 +300,17 @@ function createMercadoPagoInserts() {
       inserts += createMPGMCashInsert('',mid, name, accessToken, 193468538, country, 231);
       break;
     case 'CO':
+      inserts += createMPGMCardInsert('', mid, name, publicKey, accessToken, 243357886, category, country, 126);
       inserts += createAPCInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 243357886, category, country);
       break;
+    case 'MX':
+      inserts +=createMPGMCardInsert('', mid, name, publicKey, accessToken, 239682559, category, country, 79);
+      break;
     case 'PE':
-      inserts += createAPDInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 243048183, category, country);
+      inserts += createMPGMCardInsert('', mid, name, publicKey, accessToken, 243048183, category, country, 125);
       break;
     case 'UY':
-      inserts += createAPDInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 258033865, category, country);
+      inserts += createMPGMCardInsert('', mid, name, publicKey, accessToken, 258033865, category, country, 124);
       inserts += createAPCInserts(mid, name, mail, clientId, clientSecret, publicKey, accessToken, 258033865, category, country);
       break;
   }
