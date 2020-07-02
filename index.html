@@ -14,6 +14,7 @@
     <div class="tab">
       <button class="tablinks" onclick="openTab(event, 'PayinFees')">Payin Fees Inserts</button>
       <button class="tablinks" onclick="openTab(event, 'PayoutFees')">Payout Fees Inserts</button>
+      <button class="tablinks" onclick="openTab(event, 'Rounders')">Rounders</button>
       <button class="tablinks" onclick="openTab(event, 'FXInserts')">FX Fees Inserts</button>
       <button class="tablinks" onclick="openTab(event, 'Credentials')">Credentials Inserts</button>
       <button class="tablinks" onclick="openTab(event, 'DisableFPago')">Disable Countries for MID</button>
@@ -130,6 +131,18 @@
       </div>
       <button onclick="createPayoutsFeeInserts()"> Generate SQL </button>
     </div>
+    <div id="Rounders" class="tabcontent">
+      <input type="text" id="roundersMid" placeholder="Insert MID">
+      <input type="text" id="roundersName" placeholder="Insert Name">
+      <input type="text" id="roundersUserName" placeholder="Insert User Name">
+      <input type="text" id="roundersPassword" placeholder="Insert Password">
+      <input type="text" id="roundersxlogin" placeholder="Insert x_login">
+      <input type="text" id="roundersxtrankey" placeholder="Insert x_tran_key">
+      <input type="text" id="roundersxlogin1" placeholder="Insert x_login1">
+      <input type="text" id="roundersSecretkey" placeholder="Insert secretkey">
+      <input type="text" id="roundersImage" placeholder="Insert Image URL">
+      <button onclick="createRoundersSQL()"> Generate SQL </button>
+    </div>
     <div id="FXInserts" class="tabcontent">
       <input type="text" id="fxMid" placeholder="Insert MID">
       <select id="countriesFXSelect">
@@ -148,7 +161,7 @@
         <option value="MX">Mexico</option>
         <option value="MA">Morocco</option>
         <option value="NG">Nigeria</option>
-        <option value="PA">Panama</option>        
+        <option value="PA">Panama</option>
         <option value="PY">Paraguay</option>
         <option value="PE">Peru</option>
         <option value="TR">Turkey</option>
