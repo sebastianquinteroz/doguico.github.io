@@ -415,7 +415,6 @@ function getIpRangeFromAddressAndNetmask() {
   document.getElementById("content").innerText += generateInserts(document.getElementById("mid").value, baseAddress, broadcastaddress[3]);
 
 }
-
 function generateInserts(mid, baseAddress, max) {
   var insertQueryStatements = "";
   var min = baseAddress[3];
@@ -443,11 +442,9 @@ function createInserts() {
 
   document.getElementById("content").innerText += selectedCountry.getPayinFeeInserts(mid, cardPayinFee, bankayinFee, cashPayinFee, walletPayinFee, includeVAT);
 }
-
 function findSelectedCountryInSelectWithId(id) {
   return countriesList[getSelectSelectedValue(id)];
 }
-
 function updateAvailableFees() {
   var selectedCountry = findSelectedCountryInSelectWithId("countriesSelect");
 
@@ -458,7 +455,6 @@ function updateAvailableFees() {
 
   getVATValue();
 }
-
 function getVATValue() {
   var checkBox = document.getElementById("payinIncludeVAT");
   var selectedCountry = findSelectedCountryInSelectWithId("countriesSelect");
@@ -472,7 +468,6 @@ function getVATValue() {
 }
 
 // ******** CREDENTIALS FUNCTIONS ************
-
 function showSelectedCredential() {
   var credentials = document.getElementsByClassName("credentials");
   for (i = 0; i < credentials.length; i++) {
@@ -500,7 +495,6 @@ function createOpenpayInserts() {
 
   document.getElementById("content").innerText = inserts;
 }
-
 function getOpenpayGMCredentialsInserts(mid, name, clientId, sk, pk) {
   return openPayGMCredentialsTemplate
     .replace(/%mid/g, mid)
@@ -509,7 +503,6 @@ function getOpenpayGMCredentialsInserts(mid, name, clientId, sk, pk) {
     .replace(/%privateKey/g, sk)
     .replace(/%publicKey/g, pk);
 }
-
 function getOpenpayAPCInserts(mid) {
   return speiSubclientCredentialTemplate
     .replace(/%apiClientId/g, apiClientId.STREAMLINECASH)
@@ -536,7 +529,6 @@ function createRazorpayInserts() {
 
   document.getElementById("content").innerText = inserts;
 }
-
 function getRazorpayGMCredentialsInserts(mid, name, keyId, keySecret) {
   return razorPayGMCredentialsTemplate
     .replace(/%mid/g, mid)
@@ -544,18 +536,15 @@ function getRazorpayGMCredentialsInserts(mid, name, keyId, keySecret) {
     .replace(/%keyId/g, keyId)
     .replace(/%keySecret/g, keySecret);
 }
-
 function getRazorpayAPCInserts(mid, name, keyId, keySecret) {
   return getRazorPayCredentialInsert(name, keyId, keySecret).concat(getRazorpaySubclientCredentialInsert(mid, keyId));
 }
-
 function getRazorPayCredentialInsert(name, keyId, keySecret) {
   return insertRazorpayCredentialTemplate
     .replace(/%name/g, name)
     .replace(/%keyId/g, keyId)
     .replace(/%keySecret/g, keySecret);
 }
-
 function getRazorpaySubclientCredentialInsert(mid, keyId) {
   return insertRazorpaySubclientCredentialTemplate
     .replace(/%mid/g, mid)
@@ -577,7 +566,6 @@ function createPayTMInserts() {
 
   document.getElementById("content").innerText = inserts;
 }
-
 function getPayTMGMCredentialsInserts(mid, name, ptMerchantId, ptMerchantKey) {
   return payTMGMCredentialsTemplate
     .replace(/%mid/g, mid)
@@ -609,7 +597,6 @@ function createFlutterwaveInserts() {
 
   document.getElementById("content").innerText = inserts;
 }
-
 function getFlutterwaveGMCredentialsInserts(mid, name, fwCountry, fwzaPublicKey, fwzaKeySecret, fwzaEncryptionKey, gatewayId) {
   return fultterwaveZAGMCardsCredentialsTemplate
     .replace(/%mid/g, mid)
@@ -639,11 +626,9 @@ function disableFPago() {
 
   document.getElementById("content").innerText += beautifyContent('MID ' + mid, query);
 }
-
 function getFPagoUpdate(mid) {
   return disableFPagoUpdateTemplate.replace(/%mid/g, mid);
 }
-
 function getEnablePaymentMethods(mid, idCountry, fpagos) {
   return enablePaymentMethods
     .replace(/%mid/g, mid)
@@ -651,6 +636,8 @@ function getEnablePaymentMethods(mid, idCountry, fpagos) {
     .replace(/%fpagos/g, fpagos);
 }
 
+
+// Payouts
 var insertCashoutMerchantTemplate = "INSERT INTO unipay.cashout_merchants(id_merchant, user, pass, secret_key, status, processing_fee, fixed_fee, processing_fee_responsible, merchant_fee, notification_url, use_secco, daily_limit, monthly_limit, transaction_limit, creation_date, cashout_batch_enabled, default_descriptor, limit_validation_enabled) VALUES (%mid,'%user', '%pass', '%secretKey', 1, 0.0, 0.0, 'Merchant', 0.00, %notificationUrl, 0, %dailyLimit, %monthlyLimit, %transactionLimit, now(), %showPayoutsPanel, '%merchantName', %applyLimits); \n";
 var cashoutIPTemplate = "INSERT INTO unipay.cashout_merchants_ips (id_merchant, ip) values (%mid, '%ip'); \n";
 var insertPayoutFee = "insert into unipay.cashout_merchant_fee(id_cashout_merchant_fee, id_merchant, id_country, processing_fee_percent, processing_fee_amount, rejection_fee_amount, processing_responsible, merchant_fee_percent, minimun_fee_amount, minimun_amount, financial_trans_tax, application_date, enabled) VALUES (NULL, %mid, %country, %processingFeePercent, %processingFeeAmount, %rejectionFeeAmount,%processingFeeResponsible,%merchantFeePercent,%minimunFeeAmount,%minimunAmount,0.0,now(),1); \n"
@@ -673,7 +660,6 @@ function createPayoutsInserts() {
   if (showPayoutsInPanel)
     document.getElementById("content").innerText += beautifyContent('Whitelist panel ip', getIPInsert(mid, '54.229.6.202'));
 }
-
 function getPayoutInsert(mid, user, pass, secretKey, notificationUrl, merchantName, showPayoutsPanel, applyLimits, dailyLimit, monthlyLimit, transactionLimit) {
   return insertCashoutMerchantTemplate
     .replace(/%mid/g, mid)
@@ -688,13 +674,11 @@ function getPayoutInsert(mid, user, pass, secretKey, notificationUrl, merchantNa
     .replace(/%merchantName/g, merchantName)
     .replace(/%applyLimits/g, applyLimits);
 }
-
 function getIPInsert(mid, ip) {
   return cashoutIPTemplate
     .replace(/%mid/g, mid)
     .replace(/%ip/g, ip);
 }
-
 function createPayoutsFeeInserts() {
   var mid = document.getElementById("payoutMid").value;
   var selectedCountry = findSelectedCountryInSelectWithId("payoutCountriesSelect");
@@ -705,16 +689,56 @@ function createPayoutsFeeInserts() {
   var minimumFeeAmount = getValue(document.getElementById("payoutMinimumFeeAmountByCountry").value);
   var minimumAmount = getValue(document.getElementById("payoutMinimumAmountByCountry").value);
 
-
   document.getElementById("content").innerText += beautifyContent(selectedCountry.fullName, selectedCountry.getPayoutFeeInsert(mid, processingFeePercent, processingFeeAmount, rejectionFeeAmount, "'Merchant'", merchantFeePercent, minimumFeeAmount, minimumAmount) + selectedCountry.getPayoutTaxInsert(mid, 'Merchant'));
 }
-
 function getValue(value) {
   return value != "" ? value : 0.00;
 }
-
 function enablePayoutLimits() {
   var checkBox = document.getElementById("applyPayoutLimits");
   var div = document.getElementById("limits");
   div.style.display = checkBox.checked ? "inherit" : "none";
+}
+
+// Rounders
+
+var insertRoundersTemplate = "INSERT INTO app.app_partners (nombre,login,password,logo,enabled,default_currency,apd_x_login,apd_x_trans_key,apd_wps_x_login,apd_wps_x_trans_key,apd_secret_key) VALUES ('%name', '%username', Md5('%password'), '%imageURL' , 1, 'USD', '%xlogin', '%trankey', '%xlogin', '%xlogin1', '%secretkey');\n"
+var disableCookieControlTemplate = "UPDATE unipay.merchants SET cookie_control = 0 WHERE idmerchants = %mid;\n"
+var whitelistIPInsertTemplate = "INSERT INTO unipay.merchants_ips (idmerchants, ip_address, active) VALUES (%mid, '54.215.161.1', 'Y');\n"
+
+function createRoundersSQL() {
+  var mid = document.getElementById("roundersMid").value;
+  var name = document.getElementById("roundersName").value;
+  var userName = document.getElementById("roundersUserName").value;
+  var pass = document.getElementById("roundersPassword").value;
+  var xLogin = document.getElementById("roundersxlogin").value;
+  var xTranKey = document.getElementById("roundersxtrankey").value;
+  var xLogin1 = document.getElementById("roundersxlogin1").value;
+  var secretKey = document.getElementById("roundersSecretkey").value;
+  var imageURL = document.getElementById("roundersImage").value;
+
+  document.getElementById("content").innerText += beautifyContent('Create the merchant in the payouts table', getRoundersInsert(name,userName,pass,xLogin,xTranKey,xLogin1,secretKey,imageURL));
+  document.getElementById("content").innerText += beautifyContent('Whitelist rounders ip', getWhitelistIPInsert(mid));
+  document.getElementById("content").innerText += beautifyContent('Disable Cookie control', getCookieControlUpdate(mid));
+}
+
+function getRoundersInsert (name,userName,pass,xLogin,xTranKey,xLogin1,secretKey,imageURL) {
+  return insertRoundersTemplate
+  .replace(/%name/g, name)
+  .replace(/%username/g, userName)
+  .replace(/%password/g, pass)
+  .replace(/%xlogin/g, xLogin)
+  .replace(/%trankey/g, xTranKey)
+  .replace(/%xlogin1/g, xLogin1)
+  .replace(/%secretkey/g, secretKey)
+  .replace(/%imageURL/g, imageURL);
+
+}
+
+function getWhitelistIPInsert(mid) {
+  return whitelistIPInsertTemplate.replace(/%mid/g, mid);
+}
+
+function getCookieControlUpdate(mid) {
+  return disableCookieControlTemplate.replace(/%mid/g, mid);
 }
