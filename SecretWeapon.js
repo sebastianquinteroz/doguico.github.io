@@ -703,8 +703,9 @@ function enablePayoutLimits() {
 // Rounders
 
 var insertRoundersTemplate = "INSERT INTO app.app_partners (nombre,login,password,logo,enabled,default_currency,apd_x_login,apd_x_trans_key,apd_wps_x_login,apd_wps_x_trans_key,apd_secret_key) VALUES ('%name', '%username', Md5('%password'), '%imageURL' , 1, 'USD', '%xlogin', '%trankey', '%xlogin', '%xlogin1', '%secretkey');\n"
-var disableCookieControlTemplate = "UPDATE unipay.merchants SET cookie_control = 0 WHERE idmerchants = %mid;\n"
+var disableCookieControlTemplate = "UPDATE unipay.merchants SET cookie_control = 0, res_url=' https://rounders.astropaygroup.com/app/apd_confirmation' WHERE idmerchants = %mid;\n"
 var whitelistIPInsertTemplate = "INSERT INTO unipay.merchants_ips (idmerchants, ip_address, active) VALUES (%mid, '54.215.161.1', 'Y');\n"
+var getAPDHybridUpdate = "UPDATE apd_hybrid set amount_limit = 1000 where idmerchants = %mid;\n";
 
 function createRoundersSQL() {
   var mid = document.getElementById("roundersMid").value;
@@ -717,9 +718,10 @@ function createRoundersSQL() {
   var secretKey = document.getElementById("roundersSecretkey").value;
   var imageURL = document.getElementById("roundersImage").value;
 
-  document.getElementById("content").innerText += beautifyContent('Create the merchant in the payouts table', getRoundersInsert(name,userName,pass,xLogin,xTranKey,xLogin1,secretKey,imageURL));
+  document.getElementById("content").innerText += beautifyContent('Create the merchant in the rounders table', getRoundersInsert(name,userName,pass,xLogin,xTranKey,xLogin1,secretKey,imageURL));
   document.getElementById("content").innerText += beautifyContent('Whitelist rounders ip', getWhitelistIPInsert(mid));
   document.getElementById("content").innerText += beautifyContent('Disable Cookie control', getCookieControlUpdate(mid));
+  document.getElementById("content").innerText += beautifyContent('Update apd hybrid limit', getAPDHybridUpdate(mid));
 }
 
 function getRoundersInsert (name,userName,pass,xLogin,xTranKey,xLogin1,secretKey,imageURL) {
@@ -741,4 +743,8 @@ function getWhitelistIPInsert(mid) {
 
 function getCookieControlUpdate(mid) {
   return disableCookieControlTemplate.replace(/%mid/g, mid);
+}
+
+function getAPDHybridUpdate(mid) { 
+  return getAPDHybridUpdate.replace(/%mid/g, mid);
 }
