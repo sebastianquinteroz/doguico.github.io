@@ -87,13 +87,13 @@ class Country {
     return inserts;
   }
 
-  getFXInsertsFor(mid, columns, fees) {
+  getFXInsertsFor(mid, xrin, xrout) {
     return '-- FX for ' + this.fullName + " \n" +
       insertFxTemplate
-      .replace(/%columns/g, columns)
       .replace(/%mid/g, mid)
       .replace(/%iso/g, "'" + this.currency + "'")
-      .replace(/%fees/g, fees);
+      .replace(/%xrin/g, xrin)
+      .replace(/%xrout/g, xrout);
   }
 
   getPayoutFeeInsert(mid, processingFeePercent, processingFeeAmount, rejectionFeeAmount, responsible, merchantFeePercent, minimumFeeAmount, minimumAmount) {
@@ -137,7 +137,7 @@ class Country {
 // Templates
 var jiraBeautifyTemplate = "*%title* \n {code:sql} \n %content {code} \n";
 var insertPayinFeeTemplate = "INSERT INTO unipay.merchants_fee(id_merchant, id_country, payment_code, fee_percent, fee_transaction, fee_min, application_date) VALUES (%mid, %countryId, %paymentMethod, %feePercentage, %feeTransaction, %feeMin, NOW());\n";
-var insertFxTemplate = "INSERT INTO unipay.cotizacion_merchant(id_merchant, fecha, moneda %columns) VALUES (%mid, NOW(), %iso %fees);\n";
+var insertFxTemplate = "INSERT INTO unipay.cotizacion_merchant(id_merchant, fecha, moneda, compra, venta, xr_in, xr_out, payment_method) VALUES (%mid, NOW(), %iso, '','', %xrin, %xrout, NULL);\n";
 var insertPayoutTaxTemplate = "INSERT INTO unipay.payout_merchant_tax(id_merchant, id_payout_tax, processing_responsible, application_date, enabled) VALUES (%mid, %payoutTaxId, '%responsible', now(), 1); \n";
 var insertPayoutFeeTemplate = "insert into unipay.cashout_merchant_fee(id_cashout_merchant_fee, id_merchant, id_country, processing_fee_percent, processing_fee_amount, rejection_fee_amount, processing_responsible, merchant_fee_percent, minimun_fee_amount, minimun_amount, financial_trans_tax, application_date, enabled) VALUES (NULL, %mid, %countryId, %processingFeePercent, %processingFeeAmount,%rejectionFeeAmount,%processingResponsible,%merchantFeePercent,%minimumFeeAmount,%minimumAmount,0.0,now(),1); \n";
 
@@ -245,19 +245,11 @@ function boldText(content) {
 
 // FX
 function createFXInserts() {
-  var fees = "";
-  var columns = "";
-
   var mid = document.getElementById("fxMid").value;
-  var payinFX = document.getElementById("payinFX").value;
-  var payoutFX = document.getElementById("payoutFX").value;
+  var payinFX = document.getElementById("payinFX").value != "" ? "'" + document.getElementById("payinFX").value+ "%'": "''";
+  var payoutFX = document.getElementById("payoutFX").value != "" ? "'" + document.getElementById("payoutFX").value+ "%'": "''";
 
-  if (payinFX != "") columns += ", xr_in";
-  if (payoutFX != "") columns += ", xr_out";
-  if (payinFX != "") fees += ", '" + payinFX + "%'";
-  if (payoutFX != "") fees += ", '" + payoutFX + "%'";
-
-  document.getElementById("content").innerText += findSelectedCountryInSelectWithId("countriesFXSelect").getFXInsertsFor(mid, columns, fees);
+  document.getElementById("content").innerText += findSelectedCountryInSelectWithId("countriesFXSelect").getFXInsertsFor(mid, payinFX,payoutFX);
 }
 
 // MercadoPago Inserts Functions
@@ -703,9 +695,8 @@ function enablePayoutLimits() {
 // Rounders
 
 var insertRoundersTemplate = "INSERT INTO app.app_partners (nombre,login,password,logo,enabled,default_currency,apd_x_login,apd_x_trans_key,apd_wps_x_login,apd_wps_x_trans_key,apd_secret_key) VALUES ('%name', '%username', Md5('%password'), '%imageURL' , 1, 'USD', '%xlogin', '%trankey', '%xlogin', '%xlogin1', '%secretkey');\n"
-var disableCookieControlTemplate = "UPDATE unipay.merchants SET cookie_control = 0, res_url=' https://rounders.astropaygroup.com/app/apd_confirmation' WHERE idmerchants = %mid;\n"
+var disableCookieControlTemplate = "UPDATE unipay.merchants SET cookie_control = 0 WHERE idmerchants = %mid;\n"
 var whitelistIPInsertTemplate = "INSERT INTO unipay.merchants_ips (idmerchants, ip_address, active) VALUES (%mid, '54.215.161.1', 'Y');\n"
-var getAPDHybridUpdate = "UPDATE unipay.apd_hybrid set amount_limit = 1000 where idmerchants = %mid;\n";
 
 function createRoundersSQL() {
   var mid = document.getElementById("roundersMid").value;
@@ -718,10 +709,9 @@ function createRoundersSQL() {
   var secretKey = document.getElementById("roundersSecretkey").value;
   var imageURL = document.getElementById("roundersImage").value;
 
-  document.getElementById("content").innerText += beautifyContent('Create the merchant in the rounders table', getRoundersInsert(name,userName,pass,xLogin,xTranKey,xLogin1,secretKey,imageURL));
+  document.getElementById("content").innerText += beautifyContent('Create the merchant in the payouts table', getRoundersInsert(name,userName,pass,xLogin,xTranKey,xLogin1,secretKey,imageURL));
   document.getElementById("content").innerText += beautifyContent('Whitelist rounders ip', getWhitelistIPInsert(mid));
   document.getElementById("content").innerText += beautifyContent('Disable Cookie control', getCookieControlUpdate(mid));
-  document.getElementById("content").innerText += beautifyContent('Update apd hybrid limit', getAPDHybridUpdate(mid));
 }
 
 function getRoundersInsert (name,userName,pass,xLogin,xTranKey,xLogin1,secretKey,imageURL) {
@@ -743,8 +733,4 @@ function getWhitelistIPInsert(mid) {
 
 function getCookieControlUpdate(mid) {
   return disableCookieControlTemplate.replace(/%mid/g, mid);
-}
-
-function getAPDHybridUpdate(mid) { 
-  return getAPDHybridUpdate.replace(/%mid/g, mid);
 }
