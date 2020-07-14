@@ -258,7 +258,7 @@ var mercadoPagoCredentialTemplate = "INSERT INTO pm.mercadopago_credential (clie
 var mercadoPagoSubclientCredential = "INSERT INTO pm.mercadopago_subclient_credential SELECT %apiId, %mid,id_mercadopago_credential,1 FROM pm.mercadopago_credential WHERE client_id = '%clientId' AND country = '%country' AND sponsor_id = '%sponsorId';\n"
 
 var mercadoPagoGMCashTemplate = '{\n"country":"%country",\n"operation":"ALL",\n"cvv_type":"ALL",\n"merchant_id":%mid,\n"description":"Mercadopago %country - %agentName - %name",\n"gateway_id":%gateway,\n"active":true,\n"credential_data":{\n"access_token":"%accessToken",\n"sponsor_id":"%sponsorId"\n},\n"generic":false\n}\n';
-var mercadoPagoGMCardTemplate = '{\n"country":"%country",\n"operation":"ALL",\n"cvv_type":"ALL",\n"merchant_id":%mid,\n"description":"Mercadopago %country - %agentName - %name",\n"gateway_id":%gateway,\n"active":true,\n"credential_data":{\n"public_key":"%publicKey"\n"access_token":"%accessToken",\n"binary_account":true,\n"sponsor_id":"%sponsorId",\n"category_id":"%category"\n},\n"generic":false\n}\n';
+var mercadoPagoGMCardTemplate = '{\n"country":"%country",\n"operation":"ALL",\n"cvv_type":"ALL",\n"merchant_id":%mid,\n"description":"Mercadopago %country - %agentName - %name",\n"gateway_id":%gateway,\n"active":true,\n"credential_data":{\n"public_key":"%publicKey",\n"access_token":"%accessToken",\n"binary_account":true,\n"sponsor_id":"%sponsorId",\n"category_id":"%category"\n},\n"generic":false\n}\n';
 
 function createMercadoPagoInserts() {
   var inserts = "";
@@ -471,7 +471,7 @@ function showSelectedCredential() {
 
 // Openpay Inserts
 var speiSubclientCredentialTemplate = "insert into pm.spei_subclient_credential(id_api_client,subclient_reference,id_spei_credential,status) values (%apiClientId,'%mid',8,'1');\n"
-var openPayGMCredentialsTemplate = '{\n"country": "MX",\n"operation": "ALL",\n"cvv_type": "ALL",\n"merchant_id":%mid,\n"description": "Openpay - %name",\n"active": true,\n   "gateway_id": 98,\n"credential_data": {\n"client_id":"%clientId",\n"private_key": "%privateKey",\n"public_key": "%publicKey"\n}\n}\n';
+var openPayGMCredentialsTemplate = '{\n"country": "MX",\n"operation": "ALL",\n"cvv_type": "ALL",\n"merchant_id":%mid,\n"description": "Openpay - %name",\n"active": true,\n   "gateway_id": 98,\n"credential_data": {\n"client_id":"%clientId",\n"private_key": "%privateKey",\n"public_key": "%publicKey"\n},"generic":false\n}\n';
 
 function createOpenpayInserts() {
   var inserts = "";
@@ -568,7 +568,7 @@ function getPayTMGMCredentialsInserts(mid, name, ptMerchantId, ptMerchantKey) {
 
 
 // Flutterwave South Africa
-var fultterwaveZAGMCardsCredentialsTemplate = '{\n"country": "%country",\n"operation": "ALL",\n"cvv_type": "ALL",\n"merchant_id":%mid,\n"description": "Flutterwave %country - %name",\n"active": true,\n "gateway_id": %gatewayId,\n "credential_data": {\n"public_key":"%publicKey",\n"secret_key": "%secretKey",\n"encryption_key": "%encryptionKey"\n}\n}\n';
+var fultterwaveZAGMCardsCredentialsTemplate = '{\n"country": "%country",\n"operation": "ALL",\n"cvv_type": "ALL",\n"merchant_id":%mid,\n"description": "Flutterwave %country - %name",\n"active": true,\n "gateway_id": %gatewayId,\n "credential_data": {\n"public_key":"%publicKey",\n"secret_key": "%secretKey",\n"encryption_key": "%encryptionKey"\n},\n"generic":false\n}\n';
 
 function createFlutterwaveInserts() {
   var inserts = "";
