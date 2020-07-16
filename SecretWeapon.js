@@ -697,6 +697,8 @@ function enablePayoutLimits() {
 var insertRoundersTemplate = "INSERT INTO app.app_partners (nombre,login,password,logo,enabled,default_currency,apd_x_login,apd_x_trans_key,apd_wps_x_login,apd_wps_x_trans_key,apd_secret_key) VALUES ('%name', '%username', Md5('%password'), '%imageURL' , 1, 'USD', '%xlogin', '%trankey', '%xlogin', '%xlogin1', '%secretkey');\n"
 var disableCookieControlTemplate = "UPDATE unipay.merchants SET cookie_control = 0, res_url=' https://rounders.astropaygroup.com/app/apd_confirmation' WHERE idmerchants = %mid;\n"
 var whitelistIPInsertTemplate = "INSERT INTO unipay.merchants_ips (idmerchants, ip_address, active) VALUES (%mid, '54.215.161.1', 'Y');\n"
+var APDHybridUpdateTemplate = "UPDATE unipay.apd_hybrid SET amount_limit = 1000 WHERE idmerchants = %mid;\n"
+
 
 function createRoundersSQL() {
   var mid = document.getElementById("roundersMid").value;
@@ -737,5 +739,5 @@ function getCookieControlUpdate(mid) {
 }
 
 function getAPDHybridUpdate(mid) {
-  return getAPDHybridUpdate.replace(/%mid/g, mid);
+  return APDHybridUpdateTemplate.replace(/%mid/g, mid);
 }
