@@ -157,7 +157,7 @@ const countriesList = {
   CN: new Country("CN", "China", 46, "CNY", 0, new PayinConfiguration(null, ["EF", "UP"], null), new PayoutConfiguration()),
   CO: new Country("CO", "Colombia", 47, "COP", 0.19, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC"], ["PC"], ["EY", "DA", "BU"]), new PayoutConfiguration([new PayoutTax(4, 'GMF')])),
   CR: new Country("CR", "Costa Rica", 48, "CRC", 0, null, new PayoutConfiguration()),
-  EC: new Country("EC", "Ecuador", 61, "USD", 0.12, new PayinConfiguration(["VI", "MC"], null, ["EF"]), new PayoutConfiguration()),
+  EC: new Country("EC", "Ecuador", 61, "USD", 0.12, new PayinConfiguration(["VI","VD","MC","MD"], null, ["EF"]), new PayoutConfiguration()),
   EG: new Country("EG", "Egypt", 63, "EGP", 0.14, new PayinConfiguration(["VI", "MC"], null, ["FW"]),  new PayoutConfiguration()),
   IN: new Country("IN", "India", 101, "INR", 0.18, new PayinConfiguration(["VI", "VD", "MC", "MD", "AE", "RU"], ["NB", "UI"], null, ["PW"]),  new PayoutConfiguration()),
   ID: new Country("ID", "Indonesia", 98, "IDR", 0.1, new PayinConfiguration(["VI", "MC", "JC", "AE"], ["VS"], ["RO"], ["XW"])),
@@ -168,7 +168,7 @@ const countriesList = {
   PE: new Country("PE", "Peru", 167, "PEN", 0.18, new PayinConfiguration(["VI", "MC", "AE", "DC", "VD"], ["BC", "IB", "BP"], ["EF"]), new PayoutConfiguration([new PayoutTax(101, 'ITF')])),
   PY: new Country("PY", "Paraguay", 179, "PYG", 0.1, new PayinConfiguration(["VI", "MC", "AE", "DC", "JC", "DI", "VD", "MS"], null, ["PE"]), new PayoutConfiguration()),
   TR: new Country("TR", "Turkey", 215, "TRY", 0.18, new PayinConfiguration(["AE", "VI", "MC", "OT"], null, null)),
-  UY: new Country("UY", "Uruguay", 224, "UYU", 0.22, new PayinConfiguration(["VI", "MC", "DC", "OA", "LI"], null, ["RE", "AI"]), new PayoutConfiguration()),
+  UY: new Country("UY", "Uruguay", 224, "UYU", 0.22, new PayinConfiguration(["VI","VD", "MC", "MD", "DC", "OA", "LI"], null, ["RE", "AI"]), new PayoutConfiguration()),
   ZA: new Country("ZA", "South Africa", 237, "ZAR", 0, new PayinConfiguration(["VI", "MC"], ["IO"], null))
 }
 
