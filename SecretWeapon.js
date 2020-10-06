@@ -470,8 +470,8 @@ function showSelectedCredential() {
 }
 
 // Openpay Inserts
-var speiSubclientCredentialTemplate = "insert into pm.spei_subclient_credential(id_api_client,subclient_reference,id_spei_credential,status) values (%apiClientId,'%mid',8,'1');\n"
-var openPayGMCredentialsTemplate = '{\n"country": "MX",\n"operation": "ALL",\n"cvv_type": "ALL",\n"merchant_id":%mid,\n"description": "Openpay - %name",\n"active": true,\n   "gateway_id": 98,\n"credential_data": {\n"client_id":"%clientId",\n"private_key": "%privateKey",\n"public_key": "%publicKey"\n},"generic":false\n}\n';
+// var speiSubclientCredentialTemplate = "insert into pm.spei_subclient_credential(id_api_client,subclient_reference,id_spei_credential,status) values (%apiClientId,'%mid',8,'1');\n"
+// var openPayGMCredentialsTemplate = '{\n"country": "MX",\n"operation": "ALL",\n"cvv_type": "ALL",\n"merchant_id":%mid,\n"description": "Openpay - %name",\n"active": true,\n   "gateway_id": 98,\n"credential_data": {\n"client_id":"%clientId",\n"private_key": "%privateKey",\n"public_key": "%publicKey"\n},"generic":false\n}\n';
 
 function createOpenpayInserts() {
   var inserts = "";
@@ -483,7 +483,7 @@ function createOpenpayInserts() {
   var pk = document.getElementById("opPublicKey").value;
 
   inserts += beautifyContent('Insert in GM', getOpenpayGMCredentialsInserts(mid, name, clientId, sk, pk));
-  inserts += beautifyContent('Insert in APC', getOpenpayAPCInserts(mid));
+  // inserts += beautifyContent('Insert in APC', getOpenpayAPCInserts(mid));
 
   document.getElementById("content").innerText = inserts;
 }
