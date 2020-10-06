@@ -155,7 +155,7 @@ const countriesList = {
   BR: new Country("BR", "Brazil", 29, "BRL", 0.02, new PayinConfiguration(["VI", "VD", "MC", "MD", "EL", "HI", "AE", "JC", "AU", "DI"], ["I", "B", "BB", "CA", "SB"], ["BL"]), new PayoutConfiguration([new PayoutTax(1, 'IOF')])),
   CL: new Country("CL", "Chile", 44, "CLP", 0.19, new PayinConfiguration(["MC", "VI", "DC", "AE", "PR", "CM", "MG", "MH"], ["WP"], ["SP"]), new PayoutConfiguration()),
   CN: new Country("CN", "China", 46, "CNY", 0, new PayinConfiguration(null, ["EF", "UP"], null), new PayoutConfiguration()),
-  CO: new Country("CO", "Colombia", 47, "COP", 0.19, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC"], ["PC"], ["EY", "DA", "BU"]), new PayoutConfiguration([new PayoutTax(4, 'GMF')])),
+  CO: new Country("CO", "Colombia", 47, "COP", 0.19, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC"], ["PC"], ["EY", "BU"]), new PayoutConfiguration([new PayoutTax(4, 'GMF')])),
   CR: new Country("CR", "Costa Rica", 48, "CRC", 0, null, new PayoutConfiguration()),
   EC: new Country("EC", "Ecuador", 61, "USD", 0.12, new PayinConfiguration(["VI","VD","MC","MD"], null, ["EF"]), new PayoutConfiguration()),
   EG: new Country("EG", "Egypt", 63, "EGP", 0.14, new PayinConfiguration(["VI", "MC"], null, ["FW"]),  new PayoutConfiguration()),
