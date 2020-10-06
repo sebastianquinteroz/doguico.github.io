@@ -259,6 +259,7 @@ var mercadoPagoSubclientCredential = "INSERT INTO pm.mercadopago_subclient_crede
 
 var mercadoPagoGMCashTemplate = '{\n"country":"%country",\n"operation":"ALL",\n"cvv_type":"ALL",\n"merchant_id":%mid,\n"description":"Mercadopago %country - %agentName - %name",\n"gateway_id":%gateway,\n"active":true,\n"credential_data":{\n"access_token":"%accessToken",\n"sponsor_id":"%sponsorId"\n},\n"generic":false\n}\n';
 var mercadoPagoGMCardTemplate = '{\n"country":"%country",\n"operation":"ALL",\n"cvv_type":"ALL",\n"merchant_id":%mid,\n"description":"Mercadopago %country - %agentName - %name",\n"gateway_id":%gateway,\n"active":true,\n"credential_data":{\n"public_key":"%publicKey",\n"access_token":"%accessToken",\n"binary_account":true,\n"sponsor_id":"%sponsorId",\n"category_id":"%category"\n},\n"generic":false\n}\n';
+var mercadoPagoGMCardTemplateNoAgentName = '{\n"country":"%country",\n"operation":"ALL",\n"cvv_type":"ALL",\n"merchant_id":%mid,\n"description":"Mercadopago %country - %name",\n"gateway_id":%gateway,\n"active":true,\n"credential_data":{\n"public_key":"%publicKey",\n"access_token":"%accessToken",\n"binary_account":true,\n"sponsor_id":"%sponsorId",\n"category_id":"%category"\n},\n"generic":false\n}\n';
 
 function createMercadoPagoInserts() {
   var inserts = "";
@@ -362,16 +363,31 @@ function getMPGMCashInsert(agentName, mid, name, accessToken, sponsorId, country
           .replace(/%sponsorId/g, sponsorId);
 }
 function getMPGMCardInsert(agentName, mid, name, publicKey, accessToken, sponsorId, category, country, gatewayId) {
-  return mercadoPagoGMCardTemplate
-          .replace(/%mid/g, mid)
-          .replace(/%name/g, name)
-          .replace(/%publicKey/g, publicKey)
-          .replace(/%accessToken/g, accessToken)
-          .replace(/%agentName/g,agentName)
-          .replace(/%country/g, country)
-          .replace(/%category/g, category)
-          .replace(/%gateway/g, gatewayId)
-          .replace(/%sponsorId/g, sponsorId);
+  var insert = '';
+  if (agentName!='') {
+    insert = mercadoPagoGMCardTemplate
+            .replace(/%mid/g, mid)
+            .replace(/%name/g, name)
+            .replace(/%publicKey/g, publicKey)
+            .replace(/%accessToken/g, accessToken)
+            .replace(/%agentName/g,agentName)
+            .replace(/%country/g, country)
+            .replace(/%category/g, category)
+            .replace(/%gateway/g, gatewayId)
+            .replace(/%sponsorId/g, sponsorId);
+  } else { 
+    result = mercadoPagoGMCardTemplateNoAgentName
+            .replace(/%mid/g, mid)
+            .replace(/%name/g, name)
+            .replace(/%publicKey/g, publicKey)
+            .replace(/%accessToken/g, accessToken)
+            .replace(/%country/g, country)
+            .replace(/%category/g, category)
+            .replace(/%gateway/g, gatewayId)
+            .replace(/%sponsorId/g, sponsorId);
+  } 
+  
+  return insert;
 }
 
 // WhiteListedIps
