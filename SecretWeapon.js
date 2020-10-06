@@ -471,7 +471,7 @@ function showSelectedCredential() {
 
 // Openpay Inserts
 // var speiSubclientCredentialTemplate = "insert into pm.spei_subclient_credential(id_api_client,subclient_reference,id_spei_credential,status) values (%apiClientId,'%mid',8,'1');\n"
-// var openPayGMCredentialsTemplate = '{\n"country": "MX",\n"operation": "ALL",\n"cvv_type": "ALL",\n"merchant_id":%mid,\n"description": "Openpay - %name",\n"active": true,\n   "gateway_id": 98,\n"credential_data": {\n"client_id":"%clientId",\n"private_key": "%privateKey",\n"public_key": "%publicKey"\n},"generic":false\n}\n';
+var openPayGMCredentialsTemplate = '{\n"country": "MX",\n"operation": "ALL",\n"cvv_type": "ALL",\n"merchant_id":%mid,\n"description": "Openpay - %name",\n"active": true,\n   "gateway_id": 98,\n"credential_data": {\n"client_id":"%clientId",\n"private_key": "%privateKey",\n"public_key": "%publicKey"\n},"generic":false\n}\n';
 
 function createOpenpayInserts() {
   var inserts = "";
@@ -495,11 +495,11 @@ function getOpenpayGMCredentialsInserts(mid, name, clientId, sk, pk) {
     .replace(/%privateKey/g, sk)
     .replace(/%publicKey/g, pk);
 }
-function getOpenpayAPCInserts(mid) {
+/*function getOpenpayAPCInserts(mid) {
   return speiSubclientCredentialTemplate
     .replace(/%apiClientId/g, apiClientId.STREAMLINECASH)
     .replace(/%mid/g, mid);
-}
+}*/
 
 // Razorpay
 var insertRazorpayCredentialTemplate = "insert into pm.razorpay_credential(client_id,client_secret,public_key,access_token,last_update,country,description,creation_date,is_generic) values('%name','%keyId','%keySecret','%keyId',now(),'IN','%name',now(),0) \n";
