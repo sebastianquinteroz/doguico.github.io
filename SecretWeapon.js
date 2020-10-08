@@ -376,7 +376,7 @@ function getMPGMCardInsert(agentName, mid, name, publicKey, accessToken, sponsor
             .replace(/%gateway/g, gatewayId)
             .replace(/%sponsorId/g, sponsorId);
   } else { 
-    result = mercadoPagoGMCardTemplateNoAgentName
+    insert = mercadoPagoGMCardTemplateNoAgentName
             .replace(/%mid/g, mid)
             .replace(/%name/g, name)
             .replace(/%publicKey/g, publicKey)
