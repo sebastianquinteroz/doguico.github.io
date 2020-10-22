@@ -149,7 +149,7 @@ const apiClientId = {
   STREAMLINECARDS: '6'
 }
 const countriesList = {
-  AR: new Country("AR", "Argentina", 11, "ARS", 0.21, new PayinConfiguration(["VI", "MC", "AE", "DC", "CM", "NJ", "TS", "NT", "CS", "CL", "AG", "VD", "MD", "MS", "CO", "CB"], ["SI"], ["PF", "RP"]), new PayoutConfiguration([new PayoutTax(2, 'ID'), new PayoutTax(3, 'IC')])),
+  AR: new Country("AR", "Argentina", 11, "ARS", 0.21, new PayinConfiguration(["VI", "MC", "AE", "DC", "CM", "NJ", "TS", "NT", "CS", "CL", "AG", "VD", "MD", "MS", "CO", "CB"], ["IO"], ["PF", "RP"]), new PayoutConfiguration([new PayoutTax(2, 'ID'), new PayoutTax(3, 'IC')])),
   BD: new Country("BD", "Bangladesh", 19, "BDT", 0, null, new PayoutConfiguration()),
   BO: new Country("BO", "Bolivia", 28, "BOB", 0.13, new PayinConfiguration(null, ["IO"], null), new PayoutConfiguration()),
   BR: new Country("BR", "Brazil", 29, "BRL", 0.02, new PayinConfiguration(["VI", "VD", "MC", "MD", "EL", "HI", "AE", "JC", "AU", "DI"], ["I", "B", "BB", "CA", "SB"], ["BL"]), new PayoutConfiguration([new PayoutTax(1, 'IOF')])),
