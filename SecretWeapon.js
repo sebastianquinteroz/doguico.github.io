@@ -710,7 +710,7 @@ function enablePayoutLimits() {
 
 // Rounders
 
-var insertRoundersTemplate = "INSERT INTO app.app_partners (nombre,login,password,logo,enabled,default_currency,apd_x_login,apd_x_trans_key,apd_wps_x_login,apd_wps_x_trans_key,apd_secret_key) VALUES ('%name', '%username', Md5('%password'), '%imageURL' , 1, 'USD', '%xlogin', '%trankey', '%xlogin', '%xlogin_1', '%secretkey');\n"
+var insertRoundersTemplate = "INSERT INTO app.app_partners (nombre,login,password,logo,enabled,default_currency,apd_x_login,apd_x_trans_key,apd_wps_x_login,apd_wps_x_trans_key,apd_secret_key) VALUES ('%name', '%username', Md5('%password'), '%imageURL' , 1, 'USD', '%xlogin', '%trankey', '%xlogin', '%rounderslogin1', '%secretkey');\n"
 var disableCookieControlTemplate = "UPDATE unipay.merchants SET cookie_control = 0, res_url=' https://rounders.astropaygroup.com/app/apd_confirmation' WHERE idmerchants = %mid;\n"
 var whitelistIPInsertTemplate = "INSERT INTO unipay.merchants_ips (idmerchants, ip_address, active) VALUES (%mid, '54.215.161.1', 'Y');\n"
 var APDHybridUpdateTemplate = "UPDATE unipay.apd_hybrid SET amount_limit = 1000 WHERE idmerchants = %mid;\n"
@@ -740,7 +740,7 @@ function getRoundersInsert (name,userName,pass,xLogin,xTranKey,xLogin1,secretKey
   .replace(/%password/g, pass)
   .replace(/%xlogin/g, xLogin)
   .replace(/%trankey/g, xTranKey)
-  .replace(/%xlogin_1/g, xLogin1)
+  .replace(/%rounderslogin1/g, xLogin1)
   .replace(/%secretkey/g, secretKey)
   .replace(/%imageURL/g, imageURL);
 
