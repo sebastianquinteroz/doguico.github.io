@@ -665,9 +665,14 @@ function createPayoutsInserts() {
   var transactionLimit = applyLimits ? document.getElementById("payoutTransactionLimit").value : 9999.00;
 
   document.getElementById("content").innerText += beautifyContent('Create the merchant in the payouts table', getPayoutInsert(mid, user, pass, secretKey, notificationUrl, merchantName, showPayoutsInPanel, applyLimits, dailyLimit, monthlyLimit, transactionLimit));
-  if (showPayoutsInPanel)
+  if (showPayoutsInPanel) {
     document.getElementById("content").innerText += beautifyContent('Whitelist panel ip', getIPInsert(mid, '54.229.6.202'));
+    document.getElementById("content").innerText += beautifyContent('Whitelist panel ip', getIPInsert(mid, '10.0.6.170'));
+    document.getElementById("content").innerText += beautifyContent('Whitelist panel ip', getIPInsert(mid, '10.0.6.171'));
+
+  }
 }
+  
 function getPayoutInsert(mid, user, pass, secretKey, notificationUrl, merchantName, showPayoutsPanel, applyLimits, dailyLimit, monthlyLimit, transactionLimit) {
   return insertCashoutMerchantTemplate
     .replace(/%mid/g, mid)
