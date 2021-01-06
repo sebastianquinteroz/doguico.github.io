@@ -734,13 +734,13 @@ function createRoundersSQL() {
   var secretKey = document.getElementById("roundersSecretkey").value;
   var imageURL = document.getElementById("roundersImage").value;
 
-  document.getElementById("content").innerText += beautifyContent('Create the merchant in the rounders table', getRoundersInsert(name,userName,pass,xLogin,xTranKey,xLogin1,secretKey,imageURL));
+  document.getElementById("content").innerText += beautifyContent('Create the merchant in the rounders table', getRoundersInsert(name,userName,pass,xLogin,xTranKey,xLogin1,xTrans,secretKey,imageURL));
   document.getElementById("content").innerText += beautifyContent('Whitelist rounders ip', getWhitelistIPInsert(mid));
   document.getElementById("content").innerText += beautifyContent('Disable Cookie control', getCookieControlUpdate(mid));
   document.getElementById("content").innerText += beautifyContent('Update apd hybrid limit', getAPDHybridUpdate(mid));
 }
 
-function getRoundersInsert (name,userName,pass,xLogin,xTranKey,xLogin1,secretKey,imageURL) {
+function getRoundersInsert (name,userName,pass,xLogin,xTranKey,xLogin1,xTrans,secretKey,imageURL) {
   return insertRoundersTemplate
   .replace(/%name/g, name)
   .replace(/%username/g, userName)
@@ -748,7 +748,7 @@ function getRoundersInsert (name,userName,pass,xLogin,xTranKey,xLogin1,secretKey
   .replace(/%xlogin/g, xLogin)
   .replace(/%trankey/g, xTranKey)
   .replace(/%rounderslogin1/g, xLogin1)
-    .replace(/%xtrans/g, xTrans)
+  .replace(/%xTrans/g, xTrans)
   .replace(/%secretkey/g, secretKey)
   .replace(/%imageURL/g, imageURL);
 
