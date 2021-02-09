@@ -169,7 +169,7 @@ const countriesList = {
   PY: new Country("PY", "Paraguay", 179, "PYG", 0.1, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC", "JC", "DI", "VD", "MS"], null, ["PE"]), new PayoutConfiguration()),
   TR: new Country("TR", "Turkey", 215, "TRY", 0.18, new PayinConfiguration(["AE", "VI", "MC", "OT"], null, null)),
   UY: new Country("UY", "Uruguay", 224, "UYU", 0.22, new PayinConfiguration(["VI","VD", "MC", "MD", "DC", "OA", "LI"], null, ["RE", "AI"]), new PayoutConfiguration()),
-  ZA: new Country("ZA", "South Africa", 237, "ZAR", 0, new PayinConfiguration(["VI", "MC" "VD", "MD"], ["IO"], null))
+  ZA: new Country("ZA", "South Africa", 237, "ZAR", 0, new PayinConfiguration(["VI", "MC", "VD", "MD"], ["IO"], null))
 }
 
 // Smart Buttons Functions
