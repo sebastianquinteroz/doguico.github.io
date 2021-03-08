@@ -148,6 +148,8 @@ const apiClientId = {
   STREAMLINECASH: '4',
   STREAMLINECARDS: '6'
 }
+
+// DO VAT UNKNOWN
 const countriesList = {
   AR: new Country("AR", "Argentina", 11, "ARS", 0.21, new PayinConfiguration(["VI", "MC", "AE", "DC", "CM", "NJ", "TS", "CS", "CL", "AG", "VD", "MD", "MS", "CO", "CB"], ["IO"], ["PF", "RP"]), new PayoutConfiguration([new PayoutTax(2, 'ID'), new PayoutTax(3, 'IC')])),
   BD: new Country("BD", "Bangladesh", 19, "BDT", 0, null, new PayoutConfiguration()),
@@ -156,7 +158,9 @@ const countriesList = {
   CL: new Country("CL", "Chile", 44, "CLP", 0.19, new PayinConfiguration(["MC", "VI", "DC", "AE", "PR", "CM", "MG", "MH"], ["WP"], ["SP"]), new PayoutConfiguration()),
   CN: new Country("CN", "China", 46, "CNY", 0, new PayinConfiguration(null, ["EF", "UP"], null), new PayoutConfiguration()),
   CO: new Country("CO", "Colombia", 47, "COP", 0.19, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC"], ["PC"], ["EY", "BU", "DA"]), new PayoutConfiguration([new PayoutTax(4, 'GMF')])),
-  CR: new Country("CR", "Costa Rica", 48, "CRC", 0, null, new PayoutConfiguration()),
+  CR: new Country("CR", "Costa Rica", 48, "CRC", 0.13, new PayinConfiguration(["VI","VD","MC","MD"],["TU","CX"], null), new PayoutConfiguration()),
+  DO: new Country("DO", "Dominican Republic", 59, "DOP", 0, new PayinConfiguration(["VI","VD","MC","MD",
+AE", "DC", "DI"], null)),
   EC: new Country("EC", "Ecuador", 61, "USD", 0.12, new PayinConfiguration(["VI","VD","MC","MD"], null, ["EF"]), new PayoutConfiguration()),
   EG: new Country("EG", "Egypt", 63, "EGP", 0.14, new PayinConfiguration(["VI", "MC"], null, ["FW"]),  new PayoutConfiguration()),
   IN: new Country("IN", "India", 101, "INR", 0.18, new PayinConfiguration(["VI", "VD", "MC", "MD", "AE", "RU"], ["NB", "UI"], null, ["PW"]),  new PayoutConfiguration()),
@@ -164,7 +168,7 @@ const countriesList = {
   MA: new Country("MA", "Morocco", 132, "MAD", 0.2, new PayinConfiguration(["MI", "VI", "MC"], null, ["AM", "PP"]),  new PayoutConfiguration()),
   MX: new Country("MX", "Mexico", 150, "MXN", 0.16, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "KC", "KD"], ["SE", "BV", "BQ", "SM", "IO"], ["OX"]),  new PayoutConfiguration()),
   NG: new Country("NG", "Nigeria", 157, "NGN", 0, new PayinConfiguration(["VI", "MC", "VD", "MD", "VE"], [ "IO" ], null),  new PayoutConfiguration()),
-  PA: new Country("PA", "Panama", 166, "USD", 0, null, new PayoutConfiguration()),
+  PA: new Country("PA", "Panama", 166, "USD", 0, new PayinConfiguration(["VI","VD","MC","MD", "CV"],["NQ"],["PV"]), new PayoutConfiguration()),
   PE: new Country("PE", "Peru", 167, "PEN", 0.18, new PayinConfiguration(["VI", "MD", "MC", "AE", "DC", "VD"], ["BC", "IB", "BP"], ["EF"]), new PayoutConfiguration([new PayoutTax(9, 'ITF')])),
   PY: new Country("PY", "Paraguay", 179, "PYG", 0.1, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC", "JC", "DI", "VD", "MS"], null, ["PE"]), new PayoutConfiguration()),
   TR: new Country("TR", "Turkey", 215, "TRY", 0.18, new PayinConfiguration(["AE", "VI", "MC", "OT"], null, null)),
