@@ -672,7 +672,7 @@ function createPayoutsInserts() {
   if (showPayoutsInPanel) {
     document.getElementById("content").innerText += beautifyContent('Whitelist panel ip', getIPInsert(mid, '54.229.6.202'));
     document.getElementById("content").innerText += beautifyContent('Whitelist panel ip', getIPInsert(mid, '10.0.6.170'));
-    document.getElementById("content").innerText += beautifyContent('Whitelist panel ip', getIPInsert(mid, '10.0.6.171'));
+    document.getElementById("content").innerText += beautifyContent('Whitelist panel ip', getIPInsert(mid, '10.0.16.171'));
 
   }
 }
