@@ -165,7 +165,7 @@ const countriesList = {
   EC: new Country("EC", "Ecuador", 61, "USD", 0.12, new PayinConfiguration(["VI","VD","MC","MD"], null, ["EF"]), new PayoutConfiguration()),
   EG: new Country("EG", "Egypt", 63, "EGP", 0.14, new PayinConfiguration(["VI", "MC"], null, ["FW"]),  new PayoutConfiguration()),
   GH: new Country("GH", "Ghana", 79, "GHS", 0, new PayinConfiguration(["VD", "MC","MD"], ["MW"], null)),
-  IN: new Country("IN", "India", 101, "INR", 0.18, new PayinConfiguration(["VI", "VD", "MC", "MD", "AE", "RU"], ["NB", "UI"], null, ["PW"]),  new PayoutConfiguration()),
+  IN: new Country("IN", "India", 101, "INR", 0.18, new PayinConfiguration(["VI", "VD", "MC", "MD", "AE", "RU"], ["NB", "UI"], null, ["PW"]),  null),
   ID: new Country("ID", "Indonesia", 98, "IDR", 0.1, new PayinConfiguration(["VI", "MC", "VD", "MD", "JC", "AE"], ["VS"], ["RO"], ["XW"])),
   KE: new Country("KE", "Kenia", 110, "KES", 0, new PayinConfiguration(["VI", "MC", "VD", "MD"], ["MW"], null)),
   MA: new Country("MA", "Morocco", 132, "MAD", 0.2, new PayinConfiguration(["MI", "VI", "MC"], null, ["AM", "PP"]),  new PayoutConfiguration()),
@@ -177,7 +177,7 @@ const countriesList = {
   PH: new Country("PH", "Phillipines", 170, "PHP", 0, new PayinConfiguration(["MD", "VI", "MC"], ["MW"], null)),
   PY: new Country("PY", "Paraguay", 179, "PYG", 0.1, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC", "JC", "DI", "VD", "MS"], null, ["PE"]), new PayoutConfiguration()),
   SN: new Country("SN", "Senegal", 197, "XOF", 0, new PayinConfiguration(["MD", "VI", "MC"], ["MW"], null)),
-  TR: new Country("TR", "Turkey", 215, "TRY", 0.18, new PayinConfiguration(["AE", "VI", "MC", "OT"], null, null)),
+  TR: new Country("TR", "Turkey", 215, "TRY", 0.18, new PayinConfiguration(["AE", "VI", "MC", "OT"], null, null), new PayoutConfiguration()),
   UY: new Country("UY", "Uruguay", 224, "UYU", 0.22, new PayinConfiguration(["VI","VD", "MC", "MD", "DC", "OA", "LI"], null, ["RE", "AI"]), new PayoutConfiguration()),
   VN: new Country("VN", "Vietnam", 231, "VND", 0, new PayinConfiguration(["VI","VD", "MC", "MD", "JC"], ["IO"], null, ["VT"])),
   ZA: new Country("ZA", "South Africa", 237, "ZAR", 0, new PayinConfiguration(["VI", "MC", "VD", "MD"], ["IO"], null))
