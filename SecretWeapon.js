@@ -167,7 +167,7 @@ function buildOption(input, type) {
 const countriesList = {
   AR: new Country("AR", "Argentina", 11, "ARS", 0.21, new PayinConfiguration(["VI", "MC", "AE", "DC", "CM", "NJ", "TS", "CS", "CL", "AG", "VD", "MD", "MS", "CO", "CB"], ["IO"], ["PF", "RP"]), new PayoutConfiguration([new PayoutTax(2, 'ID'), new PayoutTax(3, 'IC')])),
   BD: new Country("BD", "Bangladesh", 19, "BDT", 0, null, new PayoutConfiguration()),
-  BO: new Country("BO", "Bolivia", 28, "BOB", 0.13, new PayinConfiguration(null, ["IO"], null), new PayoutConfiguration()),
+  BO: new Country("BO", "Bolivia", 28, "BOB", 0.13, new PayinConfiguration(null, ["IO"], null), new PayoutConfiguration([new PayoutTax(117, 'ITF')])),
   BR: new Country("BR", "Brazil", 29, "BRL", 0.02, new PayinConfiguration(["VI", "VD", "MC", "MD", "EL", "HI", "AE", "JC", "AU", "DI"], ["I", "B", "BB", "CA", "SB"], ["BL", "PQ"]), new PayoutConfiguration([new PayoutTax(1, 'IOF')])),
   CL: new Country("CL", "Chile", 44, "CLP", 0.19, new PayinConfiguration(["MC", "VI", "DC", "AE", "PR", "CM", "MG", "MH"], ["WP"], ["SP"]), new PayoutConfiguration()),
   CM: new Country("CM", "Cameroon", 45, "XAF", 0, new PayinConfiguration(["MC", "VD","MD"], ["MW"], null)),
@@ -188,7 +188,7 @@ const countriesList = {
   MY: new Country("MY", "Malaysia", 151, "MYR", 0, new PayinConfiguration(null, ["FP", "XC", "XP", "HR", "HL"], ["SL", "NM"])),
   NG: new Country("NG", "Nigeria", 157, "NGN", 0, new PayinConfiguration(["VI", "MC", "VD", "MD", "VE"], [ "IO" ], null),  new PayoutConfiguration()),
   PA: new Country("PA", "Panama", 166, "USD", 0, new PayinConfiguration(["VI","VD","MC","MD", "CV"],["NQ"],["PV"]), new PayoutConfiguration()),
-  PE: new Country("PE", "Peru", 167, "PEN", 0.18, new PayinConfiguration(["VI", "MD", "MC", "VD"], null, null)),
+  PE: new Country("PE", "Peru", 167, "PEN", 0.18, new PayinConfiguration(["VI", "MD", "MC", "VD"], null, null),new PayoutConfiguration([new PayoutTax(9, 'ITF')])),
   PH: new Country("PH", "Phillipines", 170, "PHP", 0, new PayinConfiguration(["MD", "VI", "MC"], ["MW"], null)),
   PY: new Country("PY", "Paraguay", 179, "PYG", 0.1, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC", "JC", "DI", "VD", "MS"], null, ["PE"]), new PayoutConfiguration()),
   SN: new Country("SN", "Senegal", 197, "XOF", 0, new PayinConfiguration(["MD", "VI", "MC"], ["MW"], null)),
