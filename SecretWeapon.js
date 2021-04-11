@@ -155,7 +155,7 @@ function getCountriesByType(country, type) {
 }
 
 function buildOption(input, type) {
-    const options = Object.values(countriesList).reduce(getCountriesByType(country,type)).reduce(function (country) {
+    const options = Object.fromEntries(Object.entries(countriesList).filter(([id,country]) => getCountriesByType(country, type)).reduce(function (country) {
         options += "<option value=" + country.id + ">" + country.name + "</option>";
         return options;
     }, "");
