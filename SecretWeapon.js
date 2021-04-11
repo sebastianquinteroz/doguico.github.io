@@ -150,7 +150,7 @@ const apiClientId = {
 }
 
 function getCountriesByType(country, type) {
-  if ((type == 'PAYIN' && country.payinConfiguration != null) || (type == 'PAYOUT' && country.payoutConfiguration != null) || (type == 'FX'))
+  if ((type == 'PAYIN' && country.payinConfiguration != null) || (type == 'PAYOUT' && country.payoutConfiguration != null) || (type == 'ALL'))
     return country;
 }
 
