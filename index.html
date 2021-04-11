@@ -181,7 +181,6 @@
       <input type="text" id="disableFPagoMid" placeholder="Insert MID">
       <br />
       <select id="disableFPagoSelect" data-placeholder="Choose the countries that the merchant will work with" class="chosen-select" multiple>
-<option value="AR">Argentina</option>
       </select>
       <button onclick="disableFPago()">Generate sql statement</button>
     </div>
@@ -197,7 +196,7 @@
     $(".chosen-select").chosen({
       width: "33%"
     });
-    buildOption('payinMid','PAYIN');
+    buildOption('countriesSelect','PAYIN');
     buildOption('payoutCountriesSelect','PAYOUT');
     buildOption('countriesFXSelect','FX');
     buildOption('disableFPagoSelect','FX');
