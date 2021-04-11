@@ -158,8 +158,7 @@ function buildOption(input, type) {
   const filteredCountries = Object.fromEntries(Object.entries(countriesList).filter(([id,country]) => getCountriesByType(country, type)));
   var aux = '';
   const options = Object.values(filteredCountries).map(function(country) {
-    aux += "<option value=" + country.id + ">" + country.fullName + "</option>";
-        return aux;
+    aux += "<option value=" + country.iso + ">" + country.fullName + "</option>";
     });
     document.getElementById(input).innerHTML = options;
 } 
