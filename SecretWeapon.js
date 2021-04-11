@@ -199,11 +199,6 @@ const countriesList = {
   ZA: new Country("ZA", "South Africa", 237, "ZAR", 0, new PayinConfiguration(["VI", "MC", "VD", "MD"], ["IO"], null))
 }
 
-buildOption('payinMid','PAYIN');
-buildOption('payoutCountriesSelect','PAYOUT');
-buildOption('countriesFXSelect','FX');
-buildOption('disableFPagoSelect','FX');
-
 // Smart Buttons Functions
 function openTab(evt, tabName) {
   // Declare all variables
