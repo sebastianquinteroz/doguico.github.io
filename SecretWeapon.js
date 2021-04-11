@@ -149,6 +149,14 @@ const apiClientId = {
   STREAMLINECARDS: '6'
 }
 
+function buildOption(input, type) {
+    const options = countriesList.where(x => (type == 'PAYIN' && x.payinConfiguration != null) || (type == 'PAYOUT' && x.payinConfiguration != null) || (type == 'FX')).reduce(function (country) {
+        options += "<option value=" + country.id + ">" + country.name </option>";
+        return options;
+    }, "");
+    document.getElementById(input).innerHTML = options;
+} 
+
 // DO VAT UNKNOWN
 const countriesList = {
   AR: new Country("AR", "Argentina", 11, "ARS", 0.21, new PayinConfiguration(["VI", "MC", "AE", "DC", "CM", "NJ", "TS", "CS", "CL", "AG", "VD", "MD", "MS", "CO", "CB"], ["IO"], ["PF", "RP"]), new PayoutConfiguration([new PayoutTax(2, 'ID'), new PayoutTax(3, 'IC')])),
@@ -165,6 +173,7 @@ const countriesList = {
   EC: new Country("EC", "Ecuador", 61, "USD", 0.12, new PayinConfiguration(["VI","VD","MC","MD"], null, ["EF"]), new PayoutConfiguration()),
   EG: new Country("EG", "Egypt", 63, "EGP", 0.14, new PayinConfiguration(["VI", "MC"], null, ["FW"]),  new PayoutConfiguration()),
   GH: new Country("GH", "Ghana", 79, "GHS", 0, new PayinConfiguration(["VD", "MC","MD"], ["MW"], null)),
+  GT: new Country("GT", "Guatemala", 88, "GTQ", 0, new PayinConfiguration(["VI","VD", "MC","MD","AE","DC","DI","JC"], null, null)),
   IN: new Country("IN", "India", 101, "INR", 0.18, new PayinConfiguration(["VI", "VD", "MC", "MD", "AE", "RU"], ["NB", "UI"], null, ["PW"]),  null),
   ID: new Country("ID", "Indonesia", 98, "IDR", 0.1, new PayinConfiguration(["VI", "MC", "VD", "MD", "JC", "AE"], ["VS"], ["RO"], ["XW"])),
   KE: new Country("KE", "Kenia", 110, "KES", 0, new PayinConfiguration(["VI", "MC", "VD", "MD"], ["MW"], null)),
@@ -182,6 +191,11 @@ const countriesList = {
   VN: new Country("VN", "Vietnam", 231, "VND", 0, new PayinConfiguration(["VI","VD", "MC", "MD", "JC"], ["IO"], null, ["VT"])),
   ZA: new Country("ZA", "South Africa", 237, "ZAR", 0, new PayinConfiguration(["VI", "MC", "VD", "MD"], ["IO"], null))
 }
+
+buildOption('payinMid','PAYIN');
+buildOption('payoutCountriesSelect','PAYOUT');
+buildOption('countriesFXSelect','FX');
+buildOption('disableFPagoSelect','FX');
 
 // Smart Buttons Functions
 function openTab(evt, tabName) {
