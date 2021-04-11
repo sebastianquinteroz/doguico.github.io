@@ -156,11 +156,11 @@ function getCountriesByType(country, type) {
 
 function buildOption(input, type) {
   const filteredCountries = Object.fromEntries(Object.entries(countriesList).filter(([id,country]) => getCountriesByType(country, type)));
-  var aux = '';
-  const options = Object.values(filteredCountries).map(function(country) {
-    aux += "<option value=" + country.isoCode + ">" + country.fullName + "</option>";
-    });
-    document.getElementById(input).innerHTML = options;
+  var options = '';
+  Object.values(filteredCountries).forEach(function(country) {
+    options+= "<option value=" + country.isoCode + ">" + country.fullName + "</option>";
+  });
+  document.getElementById(input).innerHTML = options;
 } 
 
 // DO VAT UNKNOWN
