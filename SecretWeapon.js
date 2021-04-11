@@ -149,8 +149,13 @@ const apiClientId = {
   STREAMLINECARDS: '6'
 }
 
+function getCountriesByType(country, type) {
+  if (type == 'PAYIN' && x.payinConfiguration != null) || (type == 'PAYOUT' && x.payinConfiguration != null) || (type == 'FX'))
+    return country;
+}
+
 function buildOption(input, type) {
-    const options = countriesList.filter(x => (type == 'PAYIN' && x.payinConfiguration != null) || (type == 'PAYOUT' && x.payinConfiguration != null) || (type == 'FX')).reduce(function (country) {
+    const options = Object.values(countriesList).reduce(getCountriesByType(country,type)).reduce(function (country) {
         options += "<option value=" + country.id + ">" + country.name + "</option>";
         return options;
     }, "");
