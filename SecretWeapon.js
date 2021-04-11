@@ -155,12 +155,12 @@ function getCountriesByType(country, type) {
 }
 
 function buildOption(input, type) {
-   var options = "";
-    const someOptions = Object.fromEntries(Object.entries(countriesList).filter(([id,country]) => getCountriesByType(country, type)).reduce(function (country) {
-        options += "<option value=" + country.id + ">" + country.name + "</option>";
+  const filteredCountries = Object.fromEntries(Object.entries(countriesList).filter(([id,country]) => getCountriesByType(country, type)));
+  const options = Object.keys(countriesList).map(function(key, country) {
+    options += "<option value=" + country.id + ">" + country.name + "</option>";
         return options;
-    }, ""));
-    document.getElementById(input).innerHTML = someOptions;
+    });
+    document.getElementById(input).innerHTML = options;
 } 
 
 // DO VAT UNKNOWN
