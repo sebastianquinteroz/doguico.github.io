@@ -169,7 +169,7 @@ const countriesList = {
   BD: new Country("BD", "Bangladesh", 19, "BDT", 0, null, new PayoutConfiguration()),
   BO: new Country("BO", "Bolivia", 28, "BOB", 0.13, new PayinConfiguration(null, ["IO"], null), new PayoutConfiguration([new PayoutTax(117, 'ITF')])),
   BR: new Country("BR", "Brazil", 29, "BRL", 0.02, new PayinConfiguration(["VI", "VD", "MC", "MD", "EL", "HI", "AE", "JC", "AU", "DI"], ["I", "B", "BB", "CA", "SB"], ["BL", "PQ"]), new PayoutConfiguration([new PayoutTax(1, 'IOF')])),
-  CL: new Country("CL", "Chile", 44, "CLP", 0.19, new PayinConfiguration(["MC", "VI", "DC", "AE", "PR", "CM", "MG", "MH"], ["WP"], ["SP"]), new PayoutConfiguration()),
+  CL: new Country("CL", "Chile", 44, "CLP", 0.19, new PayinConfiguration(["MC", "VI", "DC", "AE", "PR", "CM", "MG", "MH"], ["WP", "IO"], ["SP"]), new PayoutConfiguration()),
   CM: new Country("CM", "Cameroon", 45, "XAF", 0, new PayinConfiguration(["MC", "VD","MD"], ["MW"], null)),
   CN: new Country("CN", "China", 46, "CNY", 0, new PayinConfiguration(null, ["EF", "UP"], null), new PayoutConfiguration()),
   CO: new Country("CO", "Colombia", 47, "COP", 0.19, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC"], ["PC"], ["EY", "BU", "DA"]), new PayoutConfiguration([new PayoutTax(4, 'GMF')])),
