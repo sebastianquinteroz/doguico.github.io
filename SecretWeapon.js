@@ -177,7 +177,7 @@ const countriesList = {
   CR: new Country("CR", "Costa Rica", 48, "CRC", 0.13, new PayinConfiguration(["VI","VD","MC","MD","JC","AE","DC","DI"],["TU","CX"], null), new PayoutConfiguration()),
   DO: new Country("DO", "Dominican Republic", 59, "DOP", 0, new PayinConfiguration(["VI","VD","MC","MD",
 "AE", "DC", "DI"], new PayoutConfiguration())),
-  EC: new Country("EC", "Ecuador", 61, "USD", 0.12, new PayinConfiguration(["VI","VD","MC","MD"], null, ["EF"]), new PayoutConfiguration()),
+  EC: new Country("EC", "Ecuador", 61, "USD", 0.12, new PayinConfiguration(["VI","VD","MC","MD", "AE","AA"], null, ["EF"]), new PayoutConfiguration()),
   EG: new Country("EG", "Egypt", 63, "EGP", 0.14, new PayinConfiguration(["VI", "MC"], null, ["FW"]),  new PayoutConfiguration()),
   GH: new Country("GH", "Ghana", 79, "GHS", 0, new PayinConfiguration(["VD", "MC","MD"], ["MW"], null)),
   GT: new Country("GT", "Guatemala", 88, "GTQ", 0, new PayinConfiguration(["VI","VD", "MC","MD","AE","DC","DI","JC"], null, null)),
