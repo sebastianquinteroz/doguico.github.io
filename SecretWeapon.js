@@ -96,7 +96,7 @@ class Country {
       .replace(/%xrout/g, xrout);
   }
 
-  getPayoutFeeInsert(mid, processingFeePercent, processingFeeAmount, rejectionFeeAmount, responsible, merchantFeePercent, minimumFeeAmount, minimumAmount) {
+  getPayoutFeeInsert(mid, processingFeePercent, processingFeeAmount, rejectionFeeAmount, responsible, merchantFeePercent, minimumFeeAmount, minimumAmount,includeFeeDebitNote) {
     if (this.payoutConfiguration != null) {
 
       return '-- Fee for ' + this.fullName + " \n" +
@@ -109,7 +109,8 @@ class Country {
         .replace(/%processingResponsible/g, responsible)
         .replace(/%merchantFeePercent/g, merchantFeePercent)
         .replace(/%minimumFeeAmount/g, minimumFeeAmount)
-        .replace(/%minimumAmount/g, minimumAmount);
+        .replace(/%minimumAmount/g, minimumAmount)
+        .replace(/%includeFeeDebitNote/g,includeFeeDebitNote);
     }
   }
   getPayoutTaxInsert(mid, responsible) {
@@ -139,7 +140,7 @@ var jiraBeautifyTemplate = "*%title* \n {code:sql} \n %content {code} \n";
 var insertPayinFeeTemplate = "INSERT INTO unipay.merchants_fee(id_merchant, id_country, payment_code, fee_percent, fee_transaction, fee_min, application_date) VALUES (%mid, %countryId, %paymentMethod, %feePercentage, %feeTransaction, %feeMin, NOW());\n";
 var insertFxTemplate = "INSERT INTO unipay.cotizacion_merchant(id_merchant, fecha, moneda, compra, venta, xr_in, xr_out, payment_method) VALUES (%mid, NOW(), %iso, '','', %xrin, %xrout, NULL);\n";
 var insertPayoutTaxTemplate = "INSERT INTO unipay.payout_merchant_tax(id_merchant, id_payout_tax, processing_responsible, application_date, enabled) VALUES (%mid, %payoutTaxId, '%responsible', now(), 1); \n";
-var insertPayoutFeeTemplate = "insert into unipay.cashout_merchant_fee(id_cashout_merchant_fee, id_merchant, id_country, processing_fee_percent, processing_fee_amount, rejection_fee_amount, processing_responsible, merchant_fee_percent, minimun_fee_amount, minimun_amount, financial_trans_tax, application_date, enabled) VALUES (NULL, %mid, %countryId, %processingFeePercent, %processingFeeAmount,%rejectionFeeAmount,%processingResponsible,%merchantFeePercent,%minimumFeeAmount,%minimumAmount,0.0,now(),1); \n";
+var insertPayoutFeeTemplate = "INSERT INTO unipay.cashout_merchant_fee(id_cashout_merchant_fee, id_merchant, id_country, processing_fee_percent, processing_fee_amount, rejection_fee_amount, processing_responsible, merchant_fee_percent, minimun_fee_amount, minimun_amount, financial_trans_tax, application_date, enabled,include_fee_debit_note) VALUES (NULL, %mid, %countryId, %processingFeePercent, %processingFeeAmount,%rejectionFeeAmount,%processingResponsible,%merchantFeePercent,%minimumFeeAmount,%minimumAmount,0.0,now(),1, %includeFeeDebitNote); \n";
 
 
 // Global Properties
@@ -175,7 +176,7 @@ const countriesList = {
   CO: new Country("CO", "Colombia", 47, "COP", 0.19, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC"], ["PC"], ["EY", "BU", "DA"]), new PayoutConfiguration([new PayoutTax(4, 'GMF')])),
   CR: new Country("CR", "Costa Rica", 48, "CRC", 0.13, new PayinConfiguration(["VI","VD","MC","MD","JC","AE","DC","DI"],["TU","CX"], null), new PayoutConfiguration()),
   DO: new Country("DO", "Dominican Republic", 59, "DOP", 0, new PayinConfiguration(["VI","VD","MC","MD",
-"AE", "DC", "DI"], null)),
+"AE", "DC", "DI"], new PayoutConfiguration())),
   EC: new Country("EC", "Ecuador", 61, "USD", 0.12, new PayinConfiguration(["VI","VD","MC","MD"], null, ["EF"]), new PayoutConfiguration()),
   EG: new Country("EG", "Egypt", 63, "EGP", 0.14, new PayinConfiguration(["VI", "MC"], null, ["FW"]),  new PayoutConfiguration()),
   GH: new Country("GH", "Ghana", 79, "GHS", 0, new PayinConfiguration(["VD", "MC","MD"], ["MW"], null)),
@@ -727,8 +728,9 @@ function createPayoutsFeeInserts() {
   var merchantFeePercent = getValue(document.getElementById("payoutMerchantFeePercentByCountry").value);
   var minimumFeeAmount = getValue(document.getElementById("payoutMinimumFeeAmountByCountry").value);
   var minimumAmount = getValue(document.getElementById("payoutMinimumAmountByCountry").value);
+  var includeFeeDebitNote = getValue(document.getElementById("includeFeeDebitNote").value);
 
-  document.getElementById("content").innerText += beautifyContent(selectedCountry.fullName, selectedCountry.getPayoutFeeInsert(mid, processingFeePercent, processingFeeAmount, rejectionFeeAmount, "'Merchant'", merchantFeePercent, minimumFeeAmount, minimumAmount) + selectedCountry.getPayoutTaxInsert(mid, 'Merchant'));
+  document.getElementById("content").innerText += beautifyContent(selectedCountry.fullName, selectedCountry.getPayoutFeeInsert(mid, processingFeePercent, processingFeeAmount, rejectionFeeAmount, "'Merchant'", merchantFeePercent, minimumFeeAmount, minimumAmount,includeFeeDebitNote) + selectedCountry.getPayoutTaxInsert(mid, 'Merchant'));
 }
 function getValue(value) {
   return value != "" ? value : 0.00;
