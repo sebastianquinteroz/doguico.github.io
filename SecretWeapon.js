@@ -728,7 +728,8 @@ function createPayoutsFeeInserts() {
   var merchantFeePercent = getValue(document.getElementById("payoutMerchantFeePercentByCountry").value);
   var minimumFeeAmount = getValue(document.getElementById("payoutMinimumFeeAmountByCountry").value);
   var minimumAmount = getValue(document.getElementById("payoutMinimumAmountByCountry").value);
-  var includeFeeDebitNote = getValue(document.getElementById("includeFeeDebitNote").value);
+  var includeFeeDebitNote = document.getElementById("includeFeeDebitNote").checked ? 1 : 0;
+
 
   document.getElementById("content").innerText += beautifyContent(selectedCountry.fullName, selectedCountry.getPayoutFeeInsert(mid, processingFeePercent, processingFeeAmount, rejectionFeeAmount, "'Merchant'", merchantFeePercent, minimumFeeAmount, minimumAmount,includeFeeDebitNote) + selectedCountry.getPayoutTaxInsert(mid, 'Merchant'));
 }
