@@ -188,7 +188,7 @@ const countriesList = {
   MX: new Country("MX", "Mexico", 150, "MXN", 0.16, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "KC", "KD"], ["SE", "BV", "BQ", "SM", "IO"], ["OX"]),  new PayoutConfiguration()),
   MY: new Country("MY", "Malaysia", 151, "MYR", 0, new PayinConfiguration(null, ["FP", "XC", "XP", "HR", "HL"], ["SL", "NM"])),
   NG: new Country("NG", "Nigeria", 157, "NGN", 0, new PayinConfiguration(["VI", "MC", "VD", "MD", "VE"], [ "IO" ], null),  new PayoutConfiguration()),
-  PA: new Country("PA", "Panama", 166, "USD", 0, new PayinConfiguration(["VI","VD","MC","MD", "CV", "JC","AE"],["NQ"],["PV"]), new PayoutConfiguration()),
+  PA: new Country("PA", "Panama", 166, "USD", 0, new PayinConfiguration(["VI","VD","MC","MD", "CV", "JC","AE","DI"],["NQ"],["PV"]), new PayoutConfiguration()),
   PE: new Country("PE", "Peru", 167, "PEN", 0.18, new PayinConfiguration(["VI", "MD", "MC", "VD", "AE", "DC"], ["IB","BC","BP"], ["EF"]),new PayoutConfiguration([new PayoutTax(9, 'ITF')])),
   PH: new Country("PH", "Phillipines", 170, "PHP", 0, new PayinConfiguration(["MD", "VI", "MC"], ["MW"], null)),
   PY: new Country("PY", "Paraguay", 179, "PYG", 0.1, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC", "JC", "DI", "VD", "MS"], null, ["PE"]), new PayoutConfiguration()),
