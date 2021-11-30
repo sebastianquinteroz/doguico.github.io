@@ -167,6 +167,7 @@ function buildOption(input, type) {
 // DO VAT UNKNOWN
 const countriesList = {
   AR: new Country("AR", "Argentina", 11, "ARS", 0.21, new PayinConfiguration(["VI", "MC", "AE", "DC", "CM", "NJ", "TS", "CS", "CL", "AG", "VD", "MD", "MS", "LD","NT"], ["IO"], ["PF", "RP"]), new PayoutConfiguration([new PayoutTax(2, 'ID'), new PayoutTax(3, 'IC')])),
+  DZ: new Country("DZ", "Algeria", 60, "DZD", 0, null, new PayoutConfiguration()),
   BD: new Country("BD", "Bangladesh", 19, "BDT", 0, null, new PayoutConfiguration()),
   BO: new Country("BO", "Bolivia", 28, "BOB", 0.13, new PayinConfiguration(null, ["IO"], null), new PayoutConfiguration([new PayoutTax(117, 'ITF')])),
   BR: new Country("BR", "Brazil", 29, "BRL", 0.02, new PayinConfiguration(["VI", "VD", "MC", "MD", "EL", "HI", "AE", "JC", "AU", "DI","MS"], ["I", "B", "BB", "CA", "SB"], ["BL", "PQ"]), new PayoutConfiguration([new PayoutTax(1, 'IOF')])),
