@@ -183,7 +183,10 @@ const countriesList = {
   GT: new Country("GT", "Guatemala", 88, "GTQ", 0, new PayinConfiguration(["VI","VD", "MC","MD","AE","DC","DI","JC"], null, null)),
   ID: new Country("ID", "Indonesia", 98, "IDR", 0.1, new PayinConfiguration(["VI", "MC", "VD", "MD", "JC", "AE"], ["VS","IO"], ["RO", "AL"], ["XW", "OV","DN"])),
   IN: new Country("IN", "India", 101, "INR", 0.18, new PayinConfiguration(["VI", "VD", "MC", "MD", "RU"], ["NB", "UI"], null, ["PW", "CW"]),  new PayoutConfiguration()),
+  JO: new Country("JO", "Jordania", 108, "USD", 0, null, new PayoutConfiguration()),
   KE: new Country("KE", "Kenya", 110, "KES", 0, new PayinConfiguration(["VI", "MC", "VD", "MD"], ["MW"], null)),
+  KP: new Country("KR", "Korea", 117, "USD", 0, null, new PayoutConfiguration()),
+  LB: new Country("LB", "Lebanon", 122, "LBP", 0, null, new PayoutConfiguration()),
   MA: new Country("MA", "Morocco", 132, "MAD", 0.2, new PayinConfiguration(["MI", "VI", "MC"], null, ["AM", "PP"]),  new PayoutConfiguration()),
   MX: new Country("MX", "Mexico", 150, "MXN", 0.16, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "KC", "KD"], ["SE", "BV", "BQ", "SM", "IO"], ["OX"]),  new PayoutConfiguration()),
   MY: new Country("MY", "Malaysia", 151, "MYR", 0, new PayinConfiguration(null, ["FP", "XC", "XP", "HR", "HL"], ["SL", "NM"])),
@@ -193,10 +196,12 @@ const countriesList = {
   PH: new Country("PH", "Phillipines", 170, "PHP", 0, new PayinConfiguration(["MD", "VD", "VI", "MC"], ["SL"], ["GY", "GC", "PM"])),
   PY: new Country("PY", "Paraguay", 179, "PYG", 0.1, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC", "JC", "DI", "VD", "MS"], null, ["PE"]), new PayoutConfiguration()),
   SN: new Country("SN", "Senegal", 197, "XOF", 0, new PayinConfiguration(["MD", "VI", "VD", "MC"], ["MW"], null)),
+  TH: new Country("TH", "Thailand", 219, "TZS", 0, null, new PayoutConfiguration([new PayoutTax(164, 'WHT')]))),
   TR: new Country("TR", "Turkey", 215, "TRY", 0.18, new PayinConfiguration(["AE", "VI", "MC", "OT", "VD", "MD"], null, null), new PayoutConfiguration()),
-  UG: new Country("UG", "Uganda", 221, "UGX", 0, new PayinConfiguration(null, ["MW"], null), null),
+  TZ: new Country("TZ", "Tanzania", 219, "TZS", 0, null, new PayoutConfiguration()),
+  UG: new Country("UG", "Uganda", 221, "UGX", 0, new PayinConfiguration(null, ["MW"], null), new PayoutConfiguration()),
   UY: new Country("UY", "Uruguay", 224, "UYU", 0.22, new PayinConfiguration(["VI","VD", "MC", "MD", "DC", "OA", "LI"], null, ["RE", "AI"]), new PayoutConfiguration()),
-  VN: new Country("VN", "Vietnam", 231, "VND", 0, new PayinConfiguration(["VI","VD", "MC", "MD", "JC"], ["IO"], null, ["VT"])),
+  VN: new Country("VN", "Vietnam", 231, "VND", 0, new PayinConfiguration(["VI","VD", "MC", "MD", "JC"], ["IO"], null, ["VT"]), new PayoutConfiguration()),
   ZA: new Country("ZA", "South Africa", 237, "ZAR", 0, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE"], ["IO"], null))
 }
 
