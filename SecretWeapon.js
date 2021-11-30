@@ -196,7 +196,7 @@ const countriesList = {
   PH: new Country("PH", "Phillipines", 170, "PHP", 0, new PayinConfiguration(["MD", "VD", "VI", "MC"], ["SL"], ["GY", "GC", "PM"])),
   PY: new Country("PY", "Paraguay", 179, "PYG", 0.1, new PayinConfiguration(["VI", "MC", "VD", "MD", "AE", "DC", "JC", "DI", "VD", "MS"], null, ["PE"]), new PayoutConfiguration()),
   SN: new Country("SN", "Senegal", 197, "XOF", 0, new PayinConfiguration(["MD", "VI", "VD", "MC"], ["MW"], null)),
-  TH: new Country("TH", "Thailand", 219, "TZS", 0, null, new PayoutConfiguration([new PayoutTax(164, 'WHT')]))),
+  TH: new Country("TH", "Thailand", 219, "TZS", 0, null, new PayoutConfiguration([new PayoutTax(164, 'WHT')])),
   TR: new Country("TR", "Turkey", 215, "TRY", 0.18, new PayinConfiguration(["AE", "VI", "MC", "OT", "VD", "MD"], null, null), new PayoutConfiguration()),
   TZ: new Country("TZ", "Tanzania", 219, "TZS", 0, null, new PayoutConfiguration()),
   UG: new Country("UG", "Uganda", 221, "UGX", 0, new PayinConfiguration(null, ["MW"], null), new PayoutConfiguration()),
